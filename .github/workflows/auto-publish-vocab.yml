@@ -26,8 +26,9 @@ jobs:
         run: |
           ls -l ns/
           ls -l ns/v1/
-          cp -R ns/v1/vocab.ttl _site/ns/v1.ttl
-          cp -R ns/v1/context.json _site/ns/context/v1.json-ld
+          mkdir -p _site/ns/contect/
+          mv ns/v1/vocab.ttl _site/ns/v1.ttl
+          mv ns/v1/context.json _site/ns/context/v1.json-ld
       - name: Upload Vocab to GitHub Pages
         id: deployment
         uses: actions/upload-pages-artifact@v3
