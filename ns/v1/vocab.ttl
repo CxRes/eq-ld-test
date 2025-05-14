@@ -1,0 +1,36 @@
+@prefix eq-ld: <http://cxres.github.io/eq-ld/ns/v1#> .
+@prefix http: <http://www.w3.org/2011/http#>",
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dc: <http://purl.org/dc/terms/> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+
+<http://cxres.github.io/eq-ld/ns/v1#>
+    a owl:Ontology ;
+    dc:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
+    rdfs:label "Events Query with Linked Data"@en ;
+    rdfs:comment "The vocabulary used by the Events Query with Linked Data protocol specification."@en ;
+    rdfs:isDefinedBy <http://cxres.github.io/eq-ld/ns/v1#> ;
+    rdfs:seeAlso <https://cxres.github.io/eq-ld/protocol> ;
+    dc:issued "2025-05-14"^^xsd:date ;
+    vann:preferredNamespacePrefix "eq-ld" ;
+    vann:preferredNamespaceUri "http://cxres.github.io/eq-ld/ns/v1#"^^xsd:anyURI .
+
+# ------------
+#  Properties
+# ------------
+eq-ld:events
+    a rdf:Property ;
+    rdfs:subPropertyOf http:headers ;
+    rdfs:label "Events header fields"@en ;
+    rdfs:comment "Header fields to negotiate event notifications in an Events Query."@en ;
+    rdfs:isDefinedBy <http://cxres.github.io/eq-ld/ns/v1#> .
+
+eq-ld:state
+    a rdf:Property ;
+    rdfs:subPropertyOf http:headers ;
+    rdfs:label "State"@en ;
+    rdfs:comment "Header fields to negotiate representation of resource state in an Events Query."@en ;
+    rdfs:isDefinedBy <http://cxres.github.io/eq-ld/ns/v1#> .

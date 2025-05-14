@@ -1,0 +1,13 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "@protected": true,
+    "id": "@id",
+    "type": "@type",
+    "eq-ld": "http://cxres.github.io/eq-ld/ns/v1#",
+    "http": "http://www.w3.org/2011/http#",
+    "http-headers": "http://www.w3.org/2011/http-headers#"
+  },
+  "events": "eq-ld:events",
+  "state": "eq-ld:state"
+}

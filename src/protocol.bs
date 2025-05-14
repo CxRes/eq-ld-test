@@ -1,0 +1,84 @@
+<pre class="metadata">
+Title: Events Query with Linked Data
+Shortname: EQ-LD
+Status: w3c/UD
+ED: https://cxres.github.io/eq-ld/protocol
+Local Boilerplate: copyright yes, defaults yes, status yes
+Line Numbers: yes
+Default Highlight: http
+Editor: Rahul Gupta, https://cxres.pages.dev/profile/#i
+!Authors: <a href="https://cxres.pages.dev/profile/#i">Rahul Gupta</a>
+!Version: 0.1.0
+Abstract:
+  Events Query with Linked Data (EQ-LD) defines representation and semantics when using linked data to request and transmit notifications with the Events Query protocol.
+</pre>
+
+<style>
+  .example .sub-example {
+    margin-top: 12px;
+  }
+
+  .example .sub-example pre {
+    margin-top: 4px;
+  }
+</style>
+
+<pre class="include-raw">
+  path: table.css.html
+</pre>
+
+<pre class="include">
+  path: protocol/introduction.md
+</pre>
+
+<pre class="include">
+  path: protocol/conformance.md
+</pre>
+
+
+<pre class="include">
+  path: protocol/protocol.md
+</pre>
+
+<pre class="include">
+  path: protocol/data-models/request.md
+</pre>
+
+<pre class="include">
+  path: protocol/data-models/notification.md
+</pre>
+
+<pre class="include">
+  path: protocol/considerations.md
+</pre>
+
+<pre class="biblio">
+{
+  "EVENTS-QUERY": {
+    "note": "Work in Progress",
+    "authors": [
+      "Rahul Gupta"
+    ],
+    "href": "https://datatracker.ietf.org/doc/html/draft-gupta-httpapi-events-query",
+    "edDraft": "https://cxres.github.io/events-query/draft-gupta-httpapi-events-query.html",
+    "title": "HTTP Events Query",
+    "status": "Internet Draft",
+    "publisher": "Rahul Gupta"
+  },
+  "HTTP-QUERY": {
+    "note": "Work in Progress",
+    "authors": [
+      "Julian Reschke",
+      "James M. Snell",
+      "Mike Bishop"
+    ],
+    "href": "https://httpwg.org/http-extensions/draft-ietf-httpbis-safe-method-w-body.html",
+    "title": "The HTTP QUERY Method",
+    "status": "Internet Draft",
+    "publisher": "HTTP Working Group",
+    "deliveredBy": [
+      "https://httpwg.org/"
+    ]
+  }
+}
+</pre>
