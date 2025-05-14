@@ -10,7 +10,7 @@ on:
       - src/protocol.bs
   push:
     branches:
-      - main
+      - solid-guide
     paths:
       - src/boilerplate/**
       - src/protocol/**

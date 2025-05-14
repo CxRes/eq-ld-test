@@ -27,19 +27,19 @@ This specification uses the following RDF vocabularies and corresponding namespa
       <th> Description
   <tbody>
     <tr>
-      <td> <code>eq-ld
-      <td> <samp>http://cxres.github.io/eq-ld/ns/v1#
+      <td> <code>eq-ld</code>
+      <td> <samp>http://cxres.github.io/eq-ld/ns/v1#</samp>
       <td> [PROTOCOL]
     <tr>
-      <td> <code>as
-      <td> <samp>https://www.w3.org/ns/activitystreams#
+      <td> <code>as</code>
+      <td> <samp>https://www.w3.org/ns/activitystreams#</samp>
       <td> [[!ACTIVITYSTREAMS-VOCABULARY]]
     <tr>
-      <td> <code>http
-      <td> <samp>http://www.w3.org/2011/http#
+      <td> <code>http</code>
+      <td> <samp>http://www.w3.org/2011/http#</samp>
       <td> [[!HTTP-in-RDF10]]
     <tr>
-      <td> <code>xs
-      <td> <samp>http://www.w3.org/2001/XMLSchema#
+      <td> <code>xs</code>
+      <td> <samp>http://www.w3.org/2001/XMLSchema#</samp>
       <td> [[!XMLSCHEMA11-1]]
 </table>
