@@ -24,8 +24,8 @@ jobs:
       - name: Move files
         id: build
         run: |
-          mv ns/v1/vocab.ttl gh-pages/ns/v1.ttl
-          mv ns/v1/context.json gh-pages/ns/context/v1.json-ld
+          mv ${GITHUB_WORKSPACE}/ns/v1/vocab.ttl _site/ns/v1.ttl
+          mv ${GITHUB_WORKSPACE}/ns/v1/context.json _site/ns/context/v1.json-ld
       - name: Upload Vocab to GitHub Pages
         id: deployment
         uses: actions/upload-pages-artifact@v3
