@@ -30,9 +30,6 @@ jobs:
           mv ns/v1/vocab.ttl _site/ns/v1.ttl
           mv ns/v1/context.json _site/ns/context/v1.json-ld
       - name: Upload Vocab to GitHub Pages
-        id: deployment
         uses: actions/upload-pages-artifact@v3
-        with:
-          path: gh-pages/
       - name: Deploy Vocab to GitHub Pages
         uses: actions/deploy-pages@v4
