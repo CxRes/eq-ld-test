@@ -24,6 +24,8 @@ jobs:
       - name: Move files
         id: build
         run: |
+          ls -l .
+          ls -l ${GITHUB_WORKSPACE}
           mv ${GITHUB_WORKSPACE}/ns/v1/vocab.ttl _site/ns/v1.ttl
           mv ${GITHUB_WORKSPACE}/ns/v1/context.json _site/ns/context/v1.json-ld
       - name: Upload Vocab to GitHub Pages
