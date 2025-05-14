@@ -1,7 +1,7 @@
 # Request Query Data Model # {#request-data-model}
 
 An [PROTOCOL] request uses the [[EVENTS-QUERY#data-model|Events Query Data Model]] defined by the [[EVENTS-QUERY inline]] protocol [[EVENTS-QUERY]].
-The request data is expressed with the [[HTTP-in-RDF10 inline]] [[HTTP-in-RDF10]] and the [[PROTOCOL]][vocabulary](http://cxres.github.io/eq-ld/ns/v1).
+The request data is expressed with the [[HTTP-in-RDF10 inline]] [[HTTP-in-RDF10]] and the [PROTOCOL][vocabulary](http://cxres.github.io/eq-ld/ns/v1).
 
 ## Properties ## {#request-properties}
 
