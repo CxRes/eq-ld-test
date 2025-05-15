@@ -4,9 +4,10 @@
     "@protected": true,
     "id": "@id",
     "type": "@type",
-    "eq-ld": "http://cxres.github.io/eq-ld/ns/eq.ttl#",
-    "http": "http://www.w3.org/2011/http#",
-    "http-headers": "http://www.w3.org/2011/http-headers#"
+    "eq-ld": "http://cxres.github.io/eq-ld/ns/eq.ttl",
+    "http": "http://www.w3.org/2011/http",
+    "http-headers": "http://www.w3.org/2011/http-headers",
+    "@vocab": "#"
   },
   "events": "eq-ld:events",
   "state": "eq-ld:state"
