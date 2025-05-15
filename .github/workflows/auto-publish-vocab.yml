@@ -21,12 +21,9 @@ jobs:
           ref: main
           sparse-checkout: |
             ns
-      - name: Move files
-        id: build
-        run: |
-          mkdir public
-          mv ns/ public/ns/
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ns
+          destination_dir: ns
