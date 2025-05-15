@@ -1,1 +1,0 @@
-References within this specification point to documents with a Living Standard or Draft status, meaning their contents can still change over time. It is advised to monitor these documents, as such changes might have implications.
