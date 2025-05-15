@@ -15,8 +15,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      id-token: write
-      pages: write
     steps:
       - uses: actions/checkout@v4
         with:
@@ -26,12 +24,10 @@ jobs:
       - name: Move files
         id: build
         run: |
-          ls -l ns/
-          ls -l ns/v1/
-          mkdir -p _site/ns/context/
-          mv ns/v1/vocab.ttl _site/ns/v1.ttl
-          mv ns/v1/context.json _site/ns/context/v1.json-ld
-      - name: Upload Vocab to GitHub Pages
-        uses: actions/upload-pages-artifact@v3
-      - name: Deploy Vocab to GitHub Pages
-        uses: actions/deploy-pages@v4
+          mkdir -p public/ns/context/
+          mv ns/v1/vocab.ttl public/ns/v1.ttl
+          mv ns/v1/context.json public/ns/context/v1.json-ld
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
