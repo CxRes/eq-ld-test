@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - src/boilerplate/**
+      - src/examples/**
       - src/protocol/**
       - src/*.html
       - src/*.include
@@ -13,6 +14,7 @@ on:
       - main
     paths:
       - src/boilerplate/**
+      - src/examples/**
       - src/protocol/**
       - src/*.html
       - src/*.include

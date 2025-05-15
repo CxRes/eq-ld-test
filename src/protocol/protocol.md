@@ -13,17 +13,17 @@ A [=server=] that provides event notifications using [PROTOCOL] on a resource MU
   <div class="sub-example">
   <em>Request</em>
   <pre class="include-code">
-    path: protocol/discovery/request.http
+    path: examples/discovery/request.http
   </pre>
   </div>
   <div class="sub-example">
   <em>Response</em>
   <pre class="include-code">
-    path: protocol/discovery/response.http
-    line-highlight: 2-3
+    path: examples/discovery/response.http
   </pre>
   </div>
 </div>
+<!-- line-highlight: 2-3 -->
 
 ## Request ## {#request}
 
@@ -37,7 +37,7 @@ A [=server=] MAY support additional RDF representations for an [SUPER] provided 
 <div class="example">
   <span class="marker">Request for Event Notifications</span>
   <pre class="include-code">
-    path: protocol/request.http
+    path: examples/events/request.http
   </pre>
 </div>
 
@@ -52,6 +52,6 @@ A [=server=] MAY additionally support other RDF serializations to transmit event
 <div class="example">
   <span class="marker">Response with Event Notifications</span>
   <pre class="include-code">
-    path: protocol/response.http
+    path: examples/events/response.http
   </pre>
 </div>
