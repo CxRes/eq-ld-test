@@ -24,9 +24,8 @@ jobs:
       - name: Move files
         id: build
         run: |
-          mkdir -p public/ns/context/
-          mv ns/v1/vocab.ttl public/ns/v1.ttl
-          mv ns/v1/context.json public/ns/context/v1.json-ld
+          mkdir public
+          mv ns/ public/ns/
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
         with:

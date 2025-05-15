@@ -28,7 +28,7 @@ This specification uses the following RDF vocabularies and corresponding namespa
   <tbody>
     <tr>
       <td> <code>eq-ld</code>
-      <td> <samp>http://cxres.github.io/eq-ld/ns/v1#</samp>
+      <td> <samp>http://cxres.github.io/eq-ld/ns/eq.ttl#</samp>
       <td> [PROTOCOL]
     <tr>
       <td> <code>as</code>

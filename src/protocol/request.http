@@ -3,7 +3,7 @@ Host: example.org
 Content-Type: application/ld+json
 
 {
-  "@context": "http://cxres.github.io/eq-ld/ns/context/v1#",
+  "@context": "http://cxres.github.io/eq-ld/ns/context.jsonld",
   "eq-ld:events":[
     {
       "@type":"http:RequestHeader",
