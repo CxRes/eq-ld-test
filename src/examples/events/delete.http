@@ -1,0 +1,11 @@
+
+HTTP/1.1 200 OK
+Content-Type: application/ld+json
+Content-Length: 180
+
+{
+  "@context": "https://www.w3.org/ns/activitystreams",
+  "published": "2024-11-10T14:15:16Z",
+  "type": "Delete",
+  "object": "https://example.org/missing/John_Doe"
+}

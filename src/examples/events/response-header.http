@@ -1,0 +1,6 @@
+HTTP/1.1 200 OK
+Accept-Query: application/ld+json;
+  profile="http://www.w3.org/ns/json-ld#context http://cxres.github.io/eq-ld/ns/context.jsonld"
+Content-Type: application/http
+Events: duration=1200
+Incremental: ?1

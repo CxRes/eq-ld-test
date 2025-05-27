@@ -4,6 +4,18 @@ Content-Type: application/ld+json
 
 {
   "@context": "http://cxres.github.io/eq-ld/ns/context.jsonld",
+  "eq-ld:state":[
+    {
+      "@type":"http:RequestHeader",
+      "http:hdrName":"http-headers:accept",
+      "http:headerElements":[
+        {
+          "@type":"http:HeaderElement",
+          "http:elementName":"text/html"
+        }
+      ]
+    }
+  ],
   "eq-ld:events":[
     {
       "@type":"http:RequestHeader",
@@ -16,5 +28,4 @@ Content-Type: application/ld+json
       ]
     }
   ]
-}
-ㅤ
+}ㅤ

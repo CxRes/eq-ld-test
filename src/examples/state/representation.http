@@ -1,0 +1,10 @@
+
+HTTP/1.1 200 OK
+Content-Type: application/ld+json
+Content-Length: 139
+
+{
+  "@context": "https://json-ld.org/contexts/person.jsonld",
+  "@id": "http://dbpedia.org/resource/John_Doe",
+  "name": "John Doe"
+}

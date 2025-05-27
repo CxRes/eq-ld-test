@@ -21,6 +21,11 @@ Abstract:
   .example .sub-example pre {
     margin-top: 4px;
   }
+
+  .example .include-code~p {
+    margin-top: 20px;
+    margin-bottom: 4px;
+  }
 </style>
 
 <pre class="include-raw">
@@ -37,19 +42,23 @@ Abstract:
 
 
 <pre class="include">
-  path: protocol/protocol.md
+  path: protocol/discovery.md
 </pre>
 
 <pre class="include">
-  path: protocol/data-models/request.md
+  path: protocol/request.md
 </pre>
 
 <pre class="include">
-  path: protocol/data-models/notification.md
+  path: protocol/notification.md
 </pre>
 
 <pre class="include">
   path: protocol/considerations.md
+</pre>
+
+<pre class="include">
+  path: protocol/example.md
 </pre>
 
 <pre class="biblio">
