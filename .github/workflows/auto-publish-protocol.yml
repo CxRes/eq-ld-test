@@ -35,14 +35,11 @@ jobs:
         uses: actions/checkout@v4
       - name: Publish main with Bikeshed
         uses: w3c/spec-prod@v2
-        env:
-          BRANCH_NAME: ${{ github.ref_name }}
-          FOLDER_NAME: ${{ env.BRANCH_NAME == 'main' && '' || format('branch/{0}/', env.BRANCH_NAME) }}
         with:
           GH_PAGES_BRANCH: gh-pages
           TOOLCHAIN: bikeshed
           SOURCE: src/protocol.bs
-          DESTINATION: ${{ env.FOLDER_NAME }}protocol/index.html
+          DESTINATION: ${{ github.ref_name != 'main' &&  format('branch/{0}/', github.ref_name) || ''}}protocol/index.html
   one:
     runs-on: ubuntu-latest
     steps:
