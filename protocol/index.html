@@ -5,9 +5,9 @@
   <title>Events Query with Linked Data</title>
   <meta content="UD" name="w3c-status">
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-UD" rel="stylesheet">
-  <meta content="Bikeshed version b25686b9f, updated Fri Mar 14 14:15:20 2025 -0700" name="generator">
+  <meta content="Bikeshed version 9a7a6709a, updated Tue May 27 16:45:34 2025 -0700" name="generator">
   <link href="https://cxres.github.io/eq-ld/protocol" rel="canonical">
-  <meta content="0b63f1dcbaaa30114e9c24365115eb8938beabc5" name="revision">
+  <meta content="60bca5cdb7bb8f088255b618fb4efda04c266a99" name="revision">
   <meta content="dark light" name="color-scheme">
   <link href="https://www.w3.org/StyleSheets/TR/2021/dark.css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css">
 <style>
@@ -17,6 +17,11 @@
 
   .example .sub-example pre {
     margin-top: 4px;
+  }
+
+  .example .include-code~p {
+    margin-top: 20px;
+    margin-bottom: 4px;
   }
 </style>
 <style>
@@ -527,6 +532,50 @@ a[href].issue-return {
     text-decoration: none;
 }
 </style>
+<style>/* Boilerplate: style-line-highlighting */
+:root {
+    --highlight-hover-bg: rgba(0, 0, 0, .05);
+}
+.line-numbered {
+    display: grid !important;
+    grid-template-columns: min-content 1fr;
+    grid-auto-flow: row;
+}
+.line-numbered > *,
+.line-numbered::before,
+.line-numbered::after {
+    grid-column: 1/-1;
+}
+.line-no {
+    grid-column: 1;
+    color: gray;
+}
+.line {
+    grid-column: 2;
+}
+.line.highlight-line {
+    background: var(--highlight-hover-bg);
+}
+.line-no.highlight-line {
+    background: var(--highlight-hover-bg);
+    color: #444;
+    font-weight: bold;
+}
+.line-no.highlight-line[data-line]::before {
+    padding: 0 .5em 0 .1em;
+    content: attr(data-line);
+}
+.line-no.highlight-line[data-line-end]::after {
+    padding: 0 .5em 0 .1em;
+    content: attr(data-line-end);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --highlight-hover-bg: rgba(255, 255, 255, .05);
+    }
+}
+</style>
 <style>/* Boilerplate: style-line-numbers */
 :root {
     --highlight-hover-bg: rgba(0, 0, 0, .05);
@@ -792,7 +841,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
  <body class="h-entry">
   <div class="head">
    <h1 class="p-name no-ref" id="title">Events Query with Linked Data</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types/#UD">Unofficial Proposal Draft</a>, <time class="dt-updated" datetime="2025-05-15">15 May 2025</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types/#UD">Unofficial Proposal Draft</a>, <time class="dt-updated" datetime="2025-05-28">28 May 2025</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -836,31 +885,30 @@ This work is distributed under the <a href="https://www.w3.org/copyright/softwar
       <li><a href="#namespaces"><span class="secno">1.2</span> <span class="content">Namespaces</span></a>
       <li><a href="#conformance"><span class="secno">1.3</span> <span class="content">Conformance</span></a>
      </ol>
+    <li><a href="#discovery"><span class="secno">2</span> <span class="content">Discovery</span></a>
     <li>
-     <a href="#protocol"><span class="secno">2</span> <span class="content">Protocol</span></a>
+     <a href="#request"><span class="secno">3</span> <span class="content">Request</span></a>
      <ol class="toc">
-      <li><a href="#discovery"><span class="secno">2.1</span> <span class="content">Discovery</span></a>
-      <li><a href="#request"><span class="secno">2.2</span> <span class="content">Request</span></a>
-      <li><a href="#response"><span class="secno">2.3</span> <span class="content">Response</span></a>
+      <li><a href="#request-data-model"><span class="secno">3.1</span> <span class="content">Data Model</span></a>
+      <li><a href="#request-vocabulary"><span class="secno">3.2</span> <span class="content">Vocabulary</span></a>
+      <li><a href="#extended-request-content"><span class="secno">3.3</span> <span class="content">Extended Content</span></a>
+      <li><a href="#request-format"><span class="secno">3.4</span> <span class="content">Format</span></a>
      </ol>
     <li>
-     <a href="#request-data-model"><span class="secno">3</span> <span class="content">Request Query Data Model</span></a>
+     <a href="#notification"><span class="secno">4</span> <span class="content">Notification</span></a>
      <ol class="toc">
-      <li><a href="#request-properties"><span class="secno">3.1</span> <span class="content">Properties</span></a>
-      <li><a href="#extended-request-content"><span class="secno">3.2</span> <span class="content">Extended Content</span></a>
-     </ol>
-    <li>
-     <a href="#notification-data-model"><span class="secno">4</span> <span class="content">Event Notification Data Model</span></a>
-     <ol class="toc">
-      <li><a href="#notification-properties"><span class="secno">4.1</span> <span class="content">Properties</span></a>
-      <li><a href="#activity-mapping"><span class="secno">4.2</span> <span class="content">Activity Mapping</span></a>
-      <li><a href="#extended-notification-content"><span class="secno">4.3</span> <span class="content">Extended Content</span></a>
+      <li><a href="#notification-data-model"><span class="secno">4.1</span> <span class="content">Data Model</span></a>
+      <li><a href="#notification-vocabulary"><span class="secno">4.2</span> <span class="content">Vocabulary</span></a>
+      <li><a href="#activity-mapping"><span class="secno">4.3</span> <span class="content">Activity Mapping</span></a>
+      <li><a href="#extended-notification-content"><span class="secno">4.4</span> <span class="content">Extended Content</span></a>
+      <li><a href="#notification-format"><span class="secno">4.5</span> <span class="content">Format</span></a>
      </ol>
     <li>
      <a href="#considerations"><span class="secno"></span> <span class="content"> Considerations </span></a>
      <ol class="toc">
       <li><a href="#security-considerations"><span class="secno"></span> <span class="content">Security Considerations</span></a>
      </ol>
+    <li><a href="#example"><span class="secno"></span> <span class="content"> Example </span></a>
     <li>
      <a href="#references"><span class="secno"></span> <span class="content">References</span></a>
      <ol class="toc">
@@ -942,78 +990,52 @@ This work is distributed under the <a href="https://www.w3.org/copyright/softwar
     <dd data-md>
      <p>Interoperability of implementations for <a data-link-type="dfn" href="#client" id="ref-for-client">clients</a> and <a data-link-type="dfn" href="#server" id="ref-for-server">servers</a> is tested by evaluating an implementation’s ability to transmit and receive event notifications that conform to <span class="title">Events Query with Linked Data</span>.</p>
    </dl>
-   <h2 class="heading settled" data-level="2" id="protocol"><span class="secno">2. </span><span class="content">Protocol</span><a class="self-link" href="#protocol"></a></h2>
-   <h3 class="heading settled" data-level="2.1" id="discovery"><span class="secno">2.1. </span><span class="content">Discovery</span><a class="self-link" href="#discovery"></a></h3>
-   <p>A <a data-link-type="dfn" href="#client" id="ref-for-client①">client</a> can discover support for event notifications using <span class="title">Events Query with Linked Data</span> by examining if a <a data-link-type="dfn" href="#server" id="ref-for-server①">server</a> is able to accept a query request on a resource using a suitable RDF serialization with content consistent with the <a href="#request-data-model">§ 3 Request Query Data Model</a>.</p>
-   <p>A <a data-link-type="dfn" href="#server" id="ref-for-server②">server</a> that provides event notifications using <span class="title">Events Query with Linked Data</span> on a resource MUST advertize on the <code class="highlight"><a href="https://httpwg.org/http-extensions/draft-ietf-httpbis-safe-method-w-body.html#name-accept-query">Accept-Query</a></code> (<a data-link-type="biblio" href="#biblio-http-query" title="The HTTP QUERY Method">[HTTP-QUERY]</a> <a href="https://httpwg.org/http-extensions/draft-ietf-httpbis-safe-method-w-body.html#name-accept-query">§ 3</a>) header field of a response:</p>
-   <ul>
-    <li data-md>
-     <p><code class="highlight">application/ld+json</code> <a data-link-type="biblio" href="#biblio-json-ld11" title="JSON-LD 1.1">[JSON-LD11]</a> as an acceptable representation for a request using the <code class="highlight"><a href="https://httpwg.org/http-extensions/draft-ietf-httpbis-safe-method-w-body.html#name-query">QUERY</a></code> method (<a data-link-type="biblio" href="#biblio-http-query" title="The HTTP QUERY Method">[HTTP-QUERY]</a> <a href="https://httpwg.org/http-extensions/draft-ietf-httpbis-safe-method-w-body.html#name-query">§ 2</a>), and</p>
-     <ul>
-      <li data-md>
-       <p>further set the value of the <code class="highlight">profile</code> parameter to indicate a preferred JSON-LD context <code class="highlight">http://www.w3.org/ns/json-ld#context</code> with <code class="highlight">http://cxres.github.io/eq-ld/ns/context.jsonld</code> as the URI.</p>
-     </ul>
-   </ul>
+   <h2 class="heading settled" data-level="2" id="discovery"><span class="secno">2. </span><span class="content">Discovery</span><a class="self-link" href="#discovery"></a></h2>
+   <p>A <a data-link-type="dfn" href="#client" id="ref-for-client①">client</a> can discover support for event notifications using <span class="title">Events Query with Linked Data</span> by examining if a <a data-link-type="dfn" href="#server" id="ref-for-server①">server</a> is able to accept a query request on a resource using a suitable RDF serialization with content consistent with the <a href="#request-format">Request Format</a>.</p>
+   <p>A <a data-link-type="dfn" href="#server" id="ref-for-server②">server</a> that provides event notifications using <span class="title">Events Query with Linked Data</span> on a resource MUST advertize <code class="highlight">application/ld+json</code> <a data-link-type="biblio" href="#biblio-json-ld11" title="JSON-LD 1.1">[JSON-LD11]</a> as an acceptable representation for a request with the <code class="highlight"><a href="https://httpwg.org/http-extensions/draft-ietf-httpbis-safe-method-w-body.html#name-query">QUERY</a></code> method (<a data-link-type="biblio" href="#biblio-http-query" title="The HTTP QUERY Method">[HTTP-QUERY]</a>), using the <code class="highlight"><a href="https://httpwg.org/http-extensions/draft-ietf-httpbis-safe-method-w-body.html#name-accept-query">Accept-Query</a></code> (<a data-link-type="biblio" href="#biblio-http-query" title="The HTTP QUERY Method">[HTTP-QUERY]</a> <a href="https://httpwg.org/http-extensions/draft-ietf-httpbis-safe-method-w-body.html#name-accept-query">§ 3</a>) header field of a response.
+A <a data-link-type="dfn" href="#server" id="ref-for-server③">server</a> MUST further set the value of the <code class="highlight">profile</code> parameter of the <code class="highlight">application/ld+json</code> media type to indicate a preferred JSON-LD context <code class="highlight">http://www.w3.org/ns/json-ld#context</code> with <code class="highlight">http://cxres.github.io/eq-ld/ns/context.jsonld</code> as the URI.</p>
    <div class="example" id="example-082f34da">
     <a class="self-link" href="#example-082f34da"></a> <span class="marker">Discovery Request and Response</span> 
     <div class="sub-example">
       <em>Request</em> 
-<pre class="include-code highlight line-numbered"><span class="line-no" data-line="1"></span><span class="line"><c- nf>HEAD</c-> <c- nn>/missing/John_Doe</c-> <c- kr>HTTP</c-><c- o>/</c-><c- m>1.1</c-></span><span class="line-no" data-line="2"></span><span class="line"><c- e>Host</c-><c- o>:</c-> <c- l>example.org</c-></span></pre>
+<pre class="include-code highlight line-numbered"><span class="line-no" data-line="1"></span><span class="line"><c- nf>HEAD</c-> <c- nn>/missing/John_Doe</c-> <c- kr>HTTP</c-><c- o>/</c-><c- m>1.1</c-></span><span class="line-no highlight-line" data-line="2"></span><span class="line highlight-line"><c- e>Host</c-><c- o>:</c-> <c- l>example.org</c-></span></pre>
     </div>
     <div class="sub-example">
       <em>Response</em> 
 <pre class="include-code highlight line-numbered"><span class="line-no" data-line="1"></span><span class="line"><c- kr>HTTP</c-><c- o>/</c-><c- m>1.1</c-> <c- m>200</c-> <c- ne>OK</c-></span><span class="line-no" data-line="2"></span><span class="line"><c- e>Accept-Query</c-><c- o>:</c-> <c- l>application/ld+json;</c-></span><span class="line-no" data-line="3"></span><span class="line">  <c- l>profile="http://www.w3.org/ns/json-ld#context http://cxres.github.io/eq-ld/ns/context.jsonld"</c-></span></pre>
     </div>
    </div>
-   <h3 class="heading settled" data-level="2.2" id="request"><span class="secno">2.2. </span><span class="content">Request</span><a class="self-link" href="#request"></a></h3>
-   <p>A <a data-link-type="dfn" href="#server" id="ref-for-server③">server</a> implementing <span class="title">Events Query with Linked Data</span> MUST accept a request using the <code class="highlight"><a href="https://httpwg.org/http-extensions/draft-ietf-httpbis-safe-method-w-body.html#name-query">QUERY</a></code> method (<a data-link-type="biblio" href="#biblio-http-query" title="The HTTP QUERY Method">[HTTP-QUERY]</a> <a href="https://httpwg.org/http-extensions/draft-ietf-httpbis-safe-method-w-body.html#name-query">§ 2</a>) when:</p>
-   <ul>
-    <li data-md>
-     <p>the content-type of the request is <code class="highlight">application/ld+json</code> <a data-link-type="biblio" href="#biblio-json-ld11" title="JSON-LD 1.1">[JSON-LD11]</a>,</p>
-    <li data-md>
-     <p>the request includes <code class="highlight">http://cxres.github.io/eq-ld/ns/context.jsonld</code> as a URI for the JSON-LD context, and</p>
-    <li data-md>
-     <p>the content conforms to the <a href="#request-data-model">§ 3 Request Query Data Model</a>.</p>
-   </ul>
-   <p>A <a data-link-type="dfn" href="#server" id="ref-for-server④">server</a> MAY support additional RDF representations for an <span class="super">Events Query</span> provided their content conforms to the <a href="#request-data-model">§ 3 Request Query Data Model</a>.</p>
-   <div class="example" id="example-12ed1c99">
-    <a class="self-link" href="#example-12ed1c99"></a> <span class="marker">Request for Event Notifications</span> 
-<pre class="include-code highlight line-numbered"><span class="line-no" data-line="1"></span><span class="line"><c- nf>QUERY</c-> <c- nn>/missing/John_Doe</c-> <c- kr>HTTP</c-><c- o>/</c-><c- m>1.1</c-></span><span class="line-no" data-line="2"></span><span class="line"><c- e>Host</c-><c- o>:</c-> <c- l>example.org</c-></span><span class="line-no" data-line="3"></span><span class="line"><c- e>Content-Type</c-><c- o>:</c-> <c- l>application/ld+json</c-></span><span class="line-no" data-line="4"></span><span class="line"></span><span class="line-no" data-line="5"></span><span class="line"><c- p>{</c-></span><span class="line-no" data-line="6"></span><span class="line">  <c- nd>"@context"</c-><c- p>:</c-> <c- u>"http://cxres.github.io/eq-ld/ns/context.jsonld"</c-><c- p>,</c-></span><span class="line-no" data-line="7"></span><span class="line">  <c- f>"eq-ld:events"</c-><c- p>:[</c-></span><span class="line-no" data-line="8"></span><span class="line">    <c- p>{</c-></span><span class="line-no" data-line="9"></span><span class="line">      <c- nd>"@type"</c-><c- p>:</c-><c- u>"http:RequestHeader"</c-><c- p>,</c-></span><span class="line-no" data-line="10"></span><span class="line">      <c- f>"http:hdrName"</c-><c- p>:</c-><c- u>"http-headers:accept"</c-><c- p>,</c-></span><span class="line-no" data-line="11"></span><span class="line">      <c- f>"http:headerElements"</c-><c- p>:[</c-></span><span class="line-no" data-line="12"></span><span class="line">        <c- p>{</c-></span><span class="line-no" data-line="13"></span><span class="line">          <c- nd>"@type"</c-><c- p>:</c-><c- u>"http:HeaderElement"</c-><c- p>,</c-></span><span class="line-no" data-line="14"></span><span class="line">          <c- f>"http:elementName"</c-><c- p>:</c-><c- u>"application/ld+json"</c-></span><span class="line-no" data-line="15"></span><span class="line">        <c- p>}</c-></span><span class="line-no" data-line="16"></span><span class="line">      <c- p>]</c-></span><span class="line-no" data-line="17"></span><span class="line">    <c- p>}</c-></span><span class="line-no" data-line="18"></span><span class="line">  <c- p>],</c-></span><span class="line-no" data-line="19"></span><span class="line">  <c- f>"eq-ld:state"</c-><c- p>:[</c-></span><span class="line-no" data-line="20"></span><span class="line">    <c- p>{</c-></span><span class="line-no" data-line="21"></span><span class="line">      <c- nd>"@type"</c-><c- p>:</c-><c- u>"http:RequestHeader"</c-><c- p>,</c-></span><span class="line-no" data-line="22"></span><span class="line">      <c- f>"http:hdrName"</c-><c- p>:</c-><c- u>"http-headers:accept"</c-><c- p>,</c-></span><span class="line-no" data-line="23"></span><span class="line">      <c- f>"http:headerElements"</c-><c- p>:[</c-></span><span class="line-no" data-line="24"></span><span class="line">        <c- p>{</c-></span><span class="line-no" data-line="25"></span><span class="line">          <c- nd>"@type"</c-><c- p>:</c-><c- u>"http:HeaderElement"</c-><c- p>,</c-></span><span class="line-no" data-line="26"></span><span class="line">          <c- f>"http:elementName"</c-><c- p>:</c-><c- u>"text/html"</c-></span><span class="line-no" data-line="27"></span><span class="line">        <c- p>}</c-></span><span class="line-no" data-line="28"></span><span class="line">      <c- p>]</c-></span><span class="line-no" data-line="29"></span><span class="line">    <c- p>}</c-></span><span class="line-no" data-line="30"></span><span class="line">  <c- p>]</c-></span><span class="line-no" data-line="31"></span><span class="line"><c- p>}</c-></span><span class="line-no" data-line="32"></span><span class="line">ㅤ</span></pre>
-   </div>
-   <h3 class="heading settled" data-level="2.3" id="response"><span class="secno">2.3. </span><span class="content">Response</span><a class="self-link" href="#response"></a></h3>
-   <p>A <a data-link-type="dfn" href="#server" id="ref-for-server⑤">server</a> implementing <span class="title">Events Query with Linked Data</span> on a resource MUST be able to transmit event notifications using:</p>
-   <ul>
-    <li data-md>
-     <p>the <code class="highlight">application/ld+json</code> <a data-link-type="biblio" href="#biblio-json-ld11" title="JSON-LD 1.1">[JSON-LD11]</a> media-type, and</p>
-    <li data-md>
-     <p>the data model described in <a href="#notification-data-model">§ 4 Event Notification Data Model</a>.</p>
-   </ul>
-   <p>A <a data-link-type="dfn" href="#server" id="ref-for-server⑥">server</a> MAY additionally support other RDF serializations to transmit event notifications.</p>
-   <div class="example" id="example-839b43f2">
-    <a class="self-link" href="#example-839b43f2"></a> <span class="marker">Response with Event Notifications</span> 
-<pre class="include-code highlight line-numbered"><span class="line-no" data-line="1"></span><span class="line"><c- kr>HTTP</c-><c- o>/</c-><c- m>1.1</c-> <c- m>200</c-> <c- ne>OK</c-></span><span class="line-no" data-line="2"></span><span class="line"><c- e>Accept-Query</c-><c- o>:</c-> <c- l>application/ld+json;</c-></span><span class="line-no" data-line="3"></span><span class="line">  <c- l>profile="http://www.w3.org/ns/json-ld#context http://cxres.github.io/eq-ld/ns/context.jsonld"</c-></span><span class="line-no" data-line="4"></span><span class="line"><c- e>Content-Type</c-><c- o>:</c-> <c- l>application/http</c-></span><span class="line-no" data-line="5"></span><span class="line"><c- e>Events</c-><c- o>:</c-> <c- l>duration=1200</c-></span><span class="line-no" data-line="6"></span><span class="line"><c- e>Incremental</c-><c- o>:</c-> <c- l>?1</c-></span><span class="line-no" data-line="7"></span><span class="line"></span><span class="line-no" data-line="8"></span><span class="line">HTTP/1.1 200 OK</span><span class="line-no" data-line="9"></span><span class="line">Content-Type: application/ld+json</span><span class="line-no" data-line="10"></span><span class="line">Content-Length: 139</span><span class="line-no" data-line="11"></span><span class="line"></span><span class="line-no" data-line="12"></span><span class="line">{</span><span class="line-no" data-line="13"></span><span class="line">  "@context": "https://json-ld.org/contexts/person.jsonld",</span><span class="line-no" data-line="14"></span><span class="line">  "@id": "http://dbpedia.org/resource/John_Doe",</span><span class="line-no" data-line="15"></span><span class="line">  "name": "John Doe"</span><span class="line-no" data-line="16"></span><span class="line">}</span><span class="line-no" data-line="17"></span><span class="line"></span><span class="line-no" data-line="18"></span><span class="line">HTTP/1.1 200 OK</span><span class="line-no" data-line="19"></span><span class="line">Content-Type: application/ld+json</span><span class="line-no" data-line="20"></span><span class="line">Content-Length: 174</span><span class="line-no" data-line="21"></span><span class="line"></span><span class="line-no" data-line="22"></span><span class="line">{</span><span class="line-no" data-line="23"></span><span class="line">  "@context": "https://www.w3.org/ns/activitystreams"</span><span class="line-no" data-line="24"></span><span class="line">  "published": "2024-11-10T11:12:13Z",</span><span class="line-no" data-line="25"></span><span class="line">  "type": "Update",</span><span class="line-no" data-line="26"></span><span class="line">  "object": "https://example.org/missing/John_Doe"</span><span class="line-no" data-line="27"></span><span class="line">}</span><span class="line-no" data-line="28"></span><span class="line"></span><span class="line-no" data-line="29"></span><span class="line">HTTP/1.1 200 OK</span><span class="line-no" data-line="30"></span><span class="line">Content-Type: application/ld+json</span><span class="line-no" data-line="31"></span><span class="line">Content-Length: 174</span><span class="line-no" data-line="32"></span><span class="line"></span><span class="line-no" data-line="33"></span><span class="line">{</span><span class="line-no" data-line="34"></span><span class="line">  "@context": "https://www.w3.org/ns/activitystreams"</span><span class="line-no" data-line="35"></span><span class="line">  "published": "2024-11-10T14:15:16Z",</span><span class="line-no" data-line="36"></span><span class="line">  "type": "Delete",</span><span class="line-no" data-line="37"></span><span class="line">  "object": "https://example.org/missing/John_Doe"</span><span class="line-no" data-line="38"></span><span class="line">}</span><span class="line-no" data-line="39"></span><span class="line">ㅤ</span></pre>
-   </div>
-   <h2 class="heading settled" data-level="3" id="request-data-model"><span class="secno">3. </span><span class="content">Request Query Data Model</span><a class="self-link" href="#request-data-model"></a></h2>
-   <p>An <span class="title">Events Query with Linked Data</span> request uses the <a href="https://cxres.github.io/events-query/draft-gupta-httpapi-events-query.html#data-model">Events Query Data Model</a> defined by the <a data-biblio-display="inline" data-link-type="biblio" href="https://cxres.github.io/events-query/draft-gupta-httpapi-events-query.html"><cite>HTTP Events Query</cite></a> protocol <a data-link-type="biblio" href="#biblio-events-query" title="HTTP Events Query">[EVENTS-QUERY]</a>.
-The request data is expressed with the <a data-biblio-display="inline" data-link-type="biblio" href="https://www.w3.org/TR/HTTP-in-RDF10/"><cite>HTTP Vocabulary in RDF 1.0</cite></a> <a data-link-type="biblio" href="#biblio-http-in-rdf10" title="HTTP Vocabulary in RDF 1.0">[HTTP-in-RDF10]</a> and the <span class="title">Events Query with Linked Data</span> <a href="http://cxres.github.io/eq-ld/ns/eq.ttl">vocabulary</a>.</p>
-   <h3 class="heading settled" data-level="3.1" id="request-properties"><span class="secno">3.1. </span><span class="content">Properties</span><a class="self-link" href="#request-properties"></a></h3>
-   <p>A request for event notifications made using the <span class="title">Events Query with Linked Data</span> protocol MAY have the following properties:</p>
+   <h2 class="heading settled" data-level="3" id="request"><span class="secno">3. </span><span class="content">Request</span><a class="self-link" href="#request"></a></h2>
+   <h3 class="heading settled" data-level="3.1" id="request-data-model"><span class="secno">3.1. </span><span class="content">Data Model</span><a class="self-link" href="#request-data-model"></a></h3>
+   <p>A request for event notifications using the <span class="title">Events Query with Linked Data</span> builds on the abstract <a href="https://cxres.github.io/events-query/draft-gupta-httpapi-events-query.html#data-model">data model</a> defined by the <a data-biblio-display="inline" data-link-type="biblio" href="https://cxres.github.io/events-query/draft-gupta-httpapi-events-query.html"><cite>HTTP Events Query</cite></a> protocol <a data-link-type="biblio" href="#biblio-events-query" title="HTTP Events Query">[EVENTS-QUERY]</a>.</p>
+   <h3 class="heading settled" data-level="3.2" id="request-vocabulary"><span class="secno">3.2. </span><span class="content">Vocabulary</span><a class="self-link" href="#request-vocabulary"></a></h3>
+   <p>The request data is expressed with the <a data-biblio-display="inline" data-link-type="biblio" href="https://www.w3.org/TR/HTTP-in-RDF10/"><cite>HTTP Vocabulary in RDF 1.0</cite></a> <a data-link-type="biblio" href="#biblio-http-in-rdf10" title="HTTP Vocabulary in RDF 1.0">[HTTP-in-RDF10]</a> and the <span class="title">Events Query with Linked Data</span> <a href="http://cxres.github.io/eq-ld/ns/eq.ttl">vocabulary</a>.</p>
+   <p><span class="title">Events Query with Linked Data</span> defines the following RDF properties that a <a data-link-type="dfn" href="#client" id="ref-for-client②">client</a> MAY use in a request:</p>
    <dl>
     <dt id="request-property-events"><a class="self-link" href="#request-property-events"></a><code class="highlight"><em>eq-ld:events</em> &lt;http:headers></code> 
     <dd>Header fields to negotiate event notifications in an <span class="super">Events Query</span>. 
     <dt id="request-property-state"><a class="self-link" href="#request-property-state"></a><code class="highlight"><em>eq-ld:state</em> &lt;http:headers></code> 
     <dd>Header fields to negotiate the representation of resource state in an <span class="super">Events Query</span>. 
    </dl>
-   <h3 class="heading settled" data-level="3.2" id="extended-request-content"><span class="secno">3.2. </span><span class="content">Extended Content</span><a class="self-link" href="#extended-request-content"></a></h3>
-   <p>A <a data-link-type="dfn" href="#server" id="ref-for-server⑦">server</a> MAY admit an extended request based on an augmented <a href="https://w3c.github.io/json-ld-syntax/#the-context">JSON-LD Context</a> <a data-link-type="biblio" href="#biblio-json-ld11" title="JSON-LD 1.1">[JSON-LD11]</a> definition.</p>
+   <h3 class="heading settled" data-level="3.3" id="extended-request-content"><span class="secno">3.3. </span><span class="content">Extended Content</span><a class="self-link" href="#extended-request-content"></a></h3>
+   <p>A <a data-link-type="dfn" href="#server" id="ref-for-server④">server</a> MAY admit an extended request based on an augmented <a href="https://w3c.github.io/json-ld-syntax/#the-context">JSON-LD Context</a> <a data-link-type="biblio" href="#biblio-json-ld11" title="JSON-LD 1.1">[JSON-LD11]</a> definition.</p>
    <div class="advisement">
     <div class="marker">Implementation Guidance</div>
-     <a data-link-type="dfn" href="#server" id="ref-for-server⑧">Servers</a> are encouraged to be aware that anything can be included in an <span class="super">Events Query</span> request. <a data-link-type="dfn" href="#server" id="ref-for-server⑨">Servers</a> are advised to take suitable precautions when processing request queries. 
+     <a data-link-type="dfn" href="#server" id="ref-for-server⑤">Servers</a> are encouraged to be aware that anything can be included in an <span class="super">Events Query</span> request. <a data-link-type="dfn" href="#server" id="ref-for-server⑥">Servers</a> are advised to take suitable precautions when processing request queries. 
    </div>
-   <h2 class="heading settled" data-level="4" id="notification-data-model"><span class="secno">4. </span><span class="content">Event Notification Data Model</span><a class="self-link" href="#notification-data-model"></a></h2>
-   <p>An <span class="title">Events Query with Linked Data</span> notification message specializes the <a href="https://w3c.github.io/activitystreams/core/#activities">Activity object</a> defined by <a data-biblio-display="inline" data-link-type="biblio" href="https://w3c.github.io/activitystreams/core/"><cite>Activity Streams 2.0</cite></a> <a data-link-type="biblio" href="#biblio-activitystreams-core" title="Activity Streams 2.0">[ACTIVITYSTREAMS-CORE]</a>.
-The core notification data is expressed with the Activity Streams <a data-link-type="biblio" href="#biblio-activitystreams-vocabulary" title="Activity Vocabulary">vocabulary</a> <a data-link-type="biblio" href="#biblio-activitystreams-vocabulary" title="Activity Vocabulary">[ACTIVITYSTREAMS-VOCABULARY]</a>.</p>
-   <h3 class="heading settled" data-level="4.1" id="notification-properties"><span class="secno">4.1. </span><span class="content">Properties</span><a class="self-link" href="#notification-properties"></a></h3>
+   <h3 class="heading settled" data-level="3.4" id="request-format"><span class="secno">3.4. </span><span class="content">Format</span><a class="self-link" href="#request-format"></a></h3>
+   <p>A <a data-link-type="dfn" href="#server" id="ref-for-server⑦">server</a> implementing <span class="title">Events Query with Linked Data</span> MUST accept a request using the <code class="highlight"><a href="https://httpwg.org/http-extensions/draft-ietf-httpbis-safe-method-w-body.html#name-query">QUERY</a></code> method (<a data-link-type="biblio" href="#biblio-http-query" title="The HTTP QUERY Method">[HTTP-QUERY]</a> <a href="https://httpwg.org/http-extensions/draft-ietf-httpbis-safe-method-w-body.html#name-query">§ 2</a>) when the content-type of the request is <code class="highlight">application/ld+json</code> <a data-link-type="biblio" href="#biblio-json-ld11" title="JSON-LD 1.1">[JSON-LD11]</a>, and
+includes <code class="highlight">http://cxres.github.io/eq-ld/ns/context.jsonld</code> as a URI for the JSON-LD context.</p>
+   <p>A <a data-link-type="dfn" href="#server" id="ref-for-server⑧">server</a> MAY support additional RDF representations for an <span class="super">Events Query</span>.</p>
+   <div class="example" id="example-6e4f0b46">
+    <a class="self-link" href="#example-6e4f0b46"></a> <span class="marker">Request for Event Notifications</span> 
+<pre class="include-code highlight line-numbered"><span class="line-no" data-line="1"></span><span class="line"><c- nf>QUERY</c-> <c- nn>/missing/John_Doe</c-> <c- kr>HTTP</c-><c- o>/</c-><c- m>1.1</c-></span><span class="line-no" data-line="2"></span><span class="line"><c- e>Host</c-><c- o>:</c-> <c- l>example.org</c-></span><span class="line-no" data-line="3"></span><span class="line"><c- e>Content-Type</c-><c- o>:</c-> <c- l>application/ld+json</c-></span><span class="line-no" data-line="4"></span><span class="line"></span><span class="line-no" data-line="5"></span><span class="line"><c- p>{</c-></span><span class="line-no" data-line="6"></span><span class="line">  <c- nd>"@context"</c-><c- p>:</c-> <c- u>"http://cxres.github.io/eq-ld/ns/context.jsonld"</c-><c- p>,</c-></span><span class="line-no" data-line="7"></span><span class="line">  <c- f>"eq-ld:events"</c-><c- p>:[</c-></span><span class="line-no" data-line="8"></span><span class="line">    <c- p>{</c-></span><span class="line-no" data-line="9"></span><span class="line">      <c- nd>"@type"</c-><c- p>:</c-><c- u>"http:RequestHeader"</c-><c- p>,</c-></span><span class="line-no" data-line="10"></span><span class="line">      <c- f>"http:hdrName"</c-><c- p>:</c-><c- u>"http-headers:accept"</c-><c- p>,</c-></span><span class="line-no" data-line="11"></span><span class="line">      <c- f>"http:headerElements"</c-><c- p>:[</c-></span><span class="line-no" data-line="12"></span><span class="line">        <c- p>{</c-></span><span class="line-no" data-line="13"></span><span class="line">          <c- nd>"@type"</c-><c- p>:</c-><c- u>"http:HeaderElement"</c-><c- p>,</c-></span><span class="line-no" data-line="14"></span><span class="line">          <c- f>"http:elementName"</c-><c- p>:</c-><c- u>"application/ld+json"</c-></span><span class="line-no" data-line="15"></span><span class="line">        <c- p>}</c-></span><span class="line-no" data-line="16"></span><span class="line">      <c- p>]</c-></span><span class="line-no" data-line="17"></span><span class="line">    <c- p>}</c-></span><span class="line-no" data-line="18"></span><span class="line">  <c- p>]</c-></span><span class="line-no" data-line="19"></span><span class="line"><c- p>}</c-></span><span class="line-no" data-line="20"></span><span class="line">ㅤ</span></pre>
+   </div>
+   <h2 class="heading settled" data-level="4" id="notification"><span class="secno">4. </span><span class="content">Notification</span><a class="self-link" href="#notification"></a></h2>
+   <h3 class="heading settled" data-level="4.1" id="notification-data-model"><span class="secno">4.1. </span><span class="content">Data Model</span><a class="self-link" href="#notification-data-model"></a></h3>
+   <p>An <span class="title">Events Query with Linked Data</span> notification message specializes the <a href="https://w3c.github.io/activitystreams/core/#activities">Activity object</a> defined by <a data-biblio-display="inline" data-link-type="biblio" href="https://w3c.github.io/activitystreams/core/"><cite>Activity Streams 2.0</cite></a> <a data-link-type="biblio" href="#biblio-activitystreams-core" title="Activity Streams 2.0">[ACTIVITYSTREAMS-CORE]</a>.</p>
+   <h3 class="heading settled" data-level="4.2" id="notification-vocabulary"><span class="secno">4.2. </span><span class="content">Vocabulary</span><a class="self-link" href="#notification-vocabulary"></a></h3>
+   <p>The core notification data is expressed with the Activity Streams <a data-link-type="biblio" href="#biblio-activitystreams-vocabulary" title="Activity Vocabulary">vocabulary</a> <a data-link-type="biblio" href="#biblio-activitystreams-vocabulary" title="Activity Vocabulary">[ACTIVITYSTREAMS-VOCABULARY]</a>.</p>
    <p>An event notification transmitted using the <span class="title">Events Query with Linked Data</span> protocol MUST have the following properties:</p>
    <dl>
     <dt id="notification-property-type"><a class="self-link" href="#notification-property-type"></a><code class="highlight"><em>as:type</em> &lt;as:Activity></code> 
@@ -1021,14 +1043,21 @@ The core notification data is expressed with the Activity Streams <a data-link-t
     <dt id="notification-property-published"><a class="self-link" href="#notification-property-published"></a><code class="highlight"><em>as:published</em> &lt;xs:dateTime></code> 
     <dd> the date and time of the notification. 
    </dl>
-   <h3 class="heading settled" data-level="4.2" id="activity-mapping"><span class="secno">4.2. </span><span class="content">Activity Mapping</span><a class="self-link" href="#activity-mapping"></a></h3>
-   <p>A <a data-link-type="dfn" href="#server" id="ref-for-server①⓪">server</a> sending a <span class="title">Events Query with Linked Data</span> notification as a result of some activity on a resource MUST set the <a href="#notification-property-type">type</a> property as the <a href="https://w3c.github.io/activitystreams/vocabulary/#activity-types">type of activity</a> that triggered the notification as specified by the Activity Streams <a data-link-type="biblio" href="#biblio-activitystreams-vocabulary" title="Activity Vocabulary">vocabulary</a> <a data-link-type="biblio" href="#biblio-activitystreams-vocabulary" title="Activity Vocabulary">[ACTIVITYSTREAMS-VOCABULARY]</a>.</p>
-   <h3 class="heading settled" data-level="4.3" id="extended-notification-content"><span class="secno">4.3. </span><span class="content">Extended Content</span><a class="self-link" href="#extended-notification-content"></a></h3>
-   <p>A <a data-link-type="dfn" href="#server" id="ref-for-server①①">server</a> MAY augment the <a href="https://w3c.github.io/json-ld-syntax/#the-context">JSON-LD Context</a> <a data-link-type="biblio" href="#biblio-json-ld11" title="JSON-LD 1.1">[JSON-LD11]</a> definition and extend the content of notifications.</p>
+   <h3 class="heading settled" data-level="4.3" id="activity-mapping"><span class="secno">4.3. </span><span class="content">Activity Mapping</span><a class="self-link" href="#activity-mapping"></a></h3>
+   <p>A <a data-link-type="dfn" href="#server" id="ref-for-server⑨">server</a> sending an event notification with the <span class="title">Events Query with Linked Data</span> protocol as a result of some activity on a resource MUST set the <a href="#notification-property-type">type</a> property as the <a href="https://w3c.github.io/activitystreams/vocabulary/#activity-types">type of activity</a> that triggered the notification as specified by the Activity Streams <a data-link-type="biblio" href="#biblio-activitystreams-vocabulary" title="Activity Vocabulary">vocabulary</a> <a data-link-type="biblio" href="#biblio-activitystreams-vocabulary" title="Activity Vocabulary">[ACTIVITYSTREAMS-VOCABULARY]</a>.</p>
+   <h3 class="heading settled" data-level="4.4" id="extended-notification-content"><span class="secno">4.4. </span><span class="content">Extended Content</span><a class="self-link" href="#extended-notification-content"></a></h3>
+   <p>A <a data-link-type="dfn" href="#server" id="ref-for-server①⓪">server</a> MAY augment the <a href="https://w3c.github.io/json-ld-syntax/#the-context">JSON-LD Context</a> <a data-link-type="biblio" href="#biblio-json-ld11" title="JSON-LD 1.1">[JSON-LD11]</a> definition and extend the content of an event notification.</p>
    <p class="note" role="note"><span class="marker">NOTE:</span> See examples of <a href="https://w3c.github.io/activitystreams/core/#example-using-multiple-vocabularies">using multiple vocabularies</a> in the Activity Streams <a data-link-type="biblio" href="#biblio-activitystreams-core" title="Activity Streams 2.0">[ACTIVITYSTREAMS-CORE]</a> specification.</p>
    <div class="advisement">
     <div class="marker">Implementation Guidance</div>
-     <a data-link-type="dfn" href="#client" id="ref-for-client②">Clients</a> are encouraged to be aware that anything can be included in an event notification. <a data-link-type="dfn" href="#client" id="ref-for-client③">Clients</a> are advised to take suitable precautions when ascertaining the veracity of the contents. 
+     <a data-link-type="dfn" href="#client" id="ref-for-client③">Clients</a> are encouraged to be aware that anything can be included in an event notification. <a data-link-type="dfn" href="#client" id="ref-for-client④">Clients</a> are advised to take suitable precautions when ascertaining the veracity of the contents. 
+   </div>
+   <h3 class="heading settled" data-level="4.5" id="notification-format"><span class="secno">4.5. </span><span class="content">Format</span><a class="self-link" href="#notification-format"></a></h3>
+   <p>A <a data-link-type="dfn" href="#server" id="ref-for-server①①">server</a> implementing <span class="title">Events Query with Linked Data</span> on a resource MUST be able to transmit event notifications using the <code class="highlight">application/ld+json</code> <a data-link-type="biblio" href="#biblio-json-ld11" title="JSON-LD 1.1">[JSON-LD11]</a> media-type.</p>
+   <p>A <a data-link-type="dfn" href="#server" id="ref-for-server①②">server</a> MAY additionally support other RDF serializations to transmit event notifications.</p>
+   <div class="example" id="example-183e285e">
+    <a class="self-link" href="#example-183e285e"></a> <span class="marker">An Event Notifications</span> 
+<pre class="include-code highlight line-numbered"><span class="line-no" data-line="1"></span><span class="line"></span><span class="line-no" data-line="2"></span><span class="line"><c- kr>HTTP</c-><c- o>/</c-><c- m>1.1</c-> <c- m>200</c-> <c- ne>OK</c-></span><span class="line-no" data-line="3"></span><span class="line"><c- e>Content-Type</c-><c- o>:</c-> <c- l>application/ld+json</c-></span><span class="line-no" data-line="4"></span><span class="line"><c- e>Content-Length</c-><c- o>:</c-> <c- l>180</c-></span><span class="line-no" data-line="5"></span><span class="line"></span><span class="line-no" data-line="6"></span><span class="line"><c- p>{</c-></span><span class="line-no" data-line="7"></span><span class="line">  <c- nd>"@context"</c-><c- p>:</c-> <c- u>"https://www.w3.org/ns/activitystreams"</c-><c- p>,</c-></span><span class="line-no" data-line="8"></span><span class="line">  <c- f>"published"</c-><c- p>:</c-> <c- u>"2024-11-10T11:12:13Z"</c-><c- p>,</c-></span><span class="line-no" data-line="9"></span><span class="line">  <c- f>"type"</c-><c- p>:</c-> <c- u>"Update"</c-><c- p>,</c-></span><span class="line-no" data-line="10"></span><span class="line">  <c- f>"object"</c-><c- p>:</c-> <c- u>"https://example.org/missing/John_Doe"</c-></span><span class="line-no" data-line="11"></span><span class="line"><c- p>}</c-></span></pre>
    </div>
    <h2 class="no-num heading settled" id="considerations"><span class="content"> Considerations </span><a class="self-link" href="#considerations"></a></h2>
    <p><em>This section is non-normative.</em></p>
@@ -1036,8 +1065,24 @@ The core notification data is expressed with the Activity Streams <a data-link-t
    <h3 class="heading settled" id="security-considerations"><span class="content">Security Considerations</span><a class="self-link" href="#security-considerations"></a></h3>
    <p><em>This section is non-normative.</em></p>
    <p>Since <span class="title">Events Query with Linked Data</span> uses <span class="super">Events Query</span> to transmit notifications, it follows that the <span class="title">Events Query with Linked Data</span> inherits security considerations from <span class="super">Events Query</span>, as discussed in <a data-link-type="biblio" href="#biblio-events-query" title="HTTP Events Query">[EVENTS-QUERY]</a> <a href="https://cxres.github.io/events-query/draft-gupta-httpapi-events-query.html#name-security-considerations">§ Security Considerations</a>.</p>
-   <p><a data-link-type="dfn" href="#server" id="ref-for-server①②">Servers</a> are strongly discouraged from exposing information beyond the minimum amount necessary in a notification. <a data-link-type="dfn" href="#client" id="ref-for-client④">Clients</a> are strongly discouraged from exposing information beyond the minimum amount necessary to receive notifications from particular resources.</p>
-   <p><a data-link-type="dfn" href="#client" id="ref-for-client⑤">Clients</a> are discouraged from sending requests for notifications to untrusted <a data-link-type="dfn" href="#server" id="ref-for-server①③">servers</a>, including localhost or any other loopback IP address, in order to avoid making arbitrary requests.</p>
+   <p><a data-link-type="dfn" href="#server" id="ref-for-server①③">Servers</a> are strongly discouraged from exposing information beyond the minimum amount necessary in a notification. <a data-link-type="dfn" href="#client" id="ref-for-client⑤">Clients</a> are strongly discouraged from exposing information beyond the minimum amount necessary to receive notifications from particular resources.</p>
+   <p><a data-link-type="dfn" href="#client" id="ref-for-client⑥">Clients</a> are discouraged from sending requests for notifications to untrusted <a data-link-type="dfn" href="#server" id="ref-for-server①④">servers</a>, including localhost or any other loopback IP address, in order to avoid making arbitrary requests.</p>
+   <h2 class="no-num heading settled" id="example"><span class="content"> Example </span><a class="self-link" href="#example"></a></h2>
+   <p><em>This section is non-normative.</em></p>
+   <p>The following uses the example of a resource with a missing persons' report to illustrate the request and response for representation and event notifications using <span class="title">Events Query with Linked Data</span>.</p>
+   <div class="example" id="example-9f922dbd">
+    <a class="self-link" href="#example-9f922dbd"></a> <span class="marker"><span class="title">Events Query with Linked Data</span>: A Complete Example</span> 
+    <p>The <a data-link-type="dfn" href="#client" id="ref-for-client⑦">client</a> specifies headers in both the <code class="highlight">eq-ld:state</code> and <code class="highlight">eq-ld:events</code> property of the <span class="super">Events Query</span> request:</p>
+<pre class="include-code highlight line-numbered"><span class="line-no" data-line="1"></span><span class="line"><c- nf>QUERY</c-> <c- nn>/missing/John_Doe</c-> <c- kr>HTTP</c-><c- o>/</c-><c- m>1.1</c-></span><span class="line-no" data-line="2"></span><span class="line"><c- e>Host</c-><c- o>:</c-> <c- l>example.org</c-></span><span class="line-no" data-line="3"></span><span class="line"><c- e>Content-Type</c-><c- o>:</c-> <c- l>application/ld+json</c-></span><span class="line-no" data-line="4"></span><span class="line"></span><span class="line-no" data-line="5"></span><span class="line"><c- p>{</c-></span><span class="line-no" data-line="6"></span><span class="line">  <c- nd>"@context"</c-><c- p>:</c-> <c- u>"http://cxres.github.io/eq-ld/ns/context.jsonld"</c-><c- p>,</c-></span><span class="line-no" data-line="7"></span><span class="line">  <c- f>"eq-ld:state"</c-><c- p>:[</c-></span><span class="line-no" data-line="8"></span><span class="line">    <c- p>{</c-></span><span class="line-no" data-line="9"></span><span class="line">      <c- nd>"@type"</c-><c- p>:</c-><c- u>"http:RequestHeader"</c-><c- p>,</c-></span><span class="line-no" data-line="10"></span><span class="line">      <c- f>"http:hdrName"</c-><c- p>:</c-><c- u>"http-headers:accept"</c-><c- p>,</c-></span><span class="line-no" data-line="11"></span><span class="line">      <c- f>"http:headerElements"</c-><c- p>:[</c-></span><span class="line-no" data-line="12"></span><span class="line">        <c- p>{</c-></span><span class="line-no" data-line="13"></span><span class="line">          <c- nd>"@type"</c-><c- p>:</c-><c- u>"http:HeaderElement"</c-><c- p>,</c-></span><span class="line-no" data-line="14"></span><span class="line">          <c- f>"http:elementName"</c-><c- p>:</c-><c- u>"text/html"</c-></span><span class="line-no" data-line="15"></span><span class="line">        <c- p>}</c-></span><span class="line-no" data-line="16"></span><span class="line">      <c- p>]</c-></span><span class="line-no" data-line="17"></span><span class="line">    <c- p>}</c-></span><span class="line-no" data-line="18"></span><span class="line">  <c- p>],</c-></span><span class="line-no" data-line="19"></span><span class="line">  <c- f>"eq-ld:events"</c-><c- p>:[</c-></span><span class="line-no" data-line="20"></span><span class="line">    <c- p>{</c-></span><span class="line-no" data-line="21"></span><span class="line">      <c- nd>"@type"</c-><c- p>:</c-><c- u>"http:RequestHeader"</c-><c- p>,</c-></span><span class="line-no" data-line="22"></span><span class="line">      <c- f>"http:hdrName"</c-><c- p>:</c-><c- u>"http-headers:accept"</c-><c- p>,</c-></span><span class="line-no" data-line="23"></span><span class="line">      <c- f>"http:headerElements"</c-><c- p>:[</c-></span><span class="line-no" data-line="24"></span><span class="line">        <c- p>{</c-></span><span class="line-no" data-line="25"></span><span class="line">          <c- nd>"@type"</c-><c- p>:</c-><c- u>"http:HeaderElement"</c-><c- p>,</c-></span><span class="line-no" data-line="26"></span><span class="line">          <c- f>"http:elementName"</c-><c- p>:</c-><c- u>"application/ld+json"</c-></span><span class="line-no" data-line="27"></span><span class="line">        <c- p>}</c-></span><span class="line-no" data-line="28"></span><span class="line">      <c- p>]</c-></span><span class="line-no" data-line="29"></span><span class="line">    <c- p>}</c-></span><span class="line-no" data-line="30"></span><span class="line">  <c- p>]</c-></span><span class="line-no" data-line="31"></span><span class="line"><c- p>}</c->ㅤ</span></pre>
+    <p>The <a data-link-type="dfn" href="#server" id="ref-for-server①⑤">server</a> immediately returns headers  indicating that the response shall transmit a stream of event notifications:</p>
+<pre class="include-code highlight line-numbered"><span class="line-no" data-line="1"></span><span class="line"><c- kr>HTTP</c-><c- o>/</c-><c- m>1.1</c-> <c- m>200</c-> <c- ne>OK</c-></span><span class="line-no" data-line="2"></span><span class="line"><c- e>Accept-Query</c-><c- o>:</c-> <c- l>application/ld+json;</c-></span><span class="line-no" data-line="3"></span><span class="line">  <c- l>profile="http://www.w3.org/ns/json-ld#context http://cxres.github.io/eq-ld/ns/context.jsonld"</c-></span><span class="line-no" data-line="4"></span><span class="line"><c- e>Content-Type</c-><c- o>:</c-> <c- l>application/http</c-></span><span class="line-no" data-line="5"></span><span class="line"><c- e>Events</c-><c- o>:</c-> <c- l>duration=1200</c-></span><span class="line-no" data-line="6"></span><span class="line"><c- e>Incremental</c-><c- o>:</c-> <c- l>?1</c-></span></pre>
+    <p>Following this, the <a data-link-type="dfn" href="#server" id="ref-for-server①⑥">server</a> returns the missing persons' report as the representation of the resource:</p>
+<pre class="include-code highlight line-numbered"><span class="line-no" data-line="7"></span><span class="line"></span><span class="line-no" data-line="8"></span><span class="line"><c- kr>HTTP</c-><c- o>/</c-><c- m>1.1</c-> <c- m>200</c-> <c- ne>OK</c-></span><span class="line-no" data-line="9"></span><span class="line"><c- e>Content-Type</c-><c- o>:</c-> <c- l>application/ld+json</c-></span><span class="line-no" data-line="10"></span><span class="line"><c- e>Content-Length</c-><c- o>:</c-> <c- l>139</c-></span><span class="line-no" data-line="11"></span><span class="line"></span><span class="line-no" data-line="12"></span><span class="line"><c- p>{</c-></span><span class="line-no" data-line="13"></span><span class="line">  <c- nd>"@context"</c-><c- p>:</c-> <c- u>"https://json-ld.org/contexts/person.jsonld"</c-><c- p>,</c-></span><span class="line-no" data-line="14"></span><span class="line">  <c- nd>"@id"</c-><c- p>:</c-> <c- u>"http://dbpedia.org/resource/John_Doe"</c-><c- p>,</c-></span><span class="line-no" data-line="15"></span><span class="line">  <c- f>"name"</c-><c- p>:</c-> <c- u>"John Doe"</c-></span><span class="line-no" data-line="16"></span><span class="line"><c- p>}</c-></span></pre>
+    <p>Subsequently, when status of the person is updated, the <a data-link-type="dfn" href="#server" id="ref-for-server①⑦">server</a> transmits an event notification:</p>
+<pre class="include-code highlight line-numbered"><span class="line-no" data-line="17"></span><span class="line"></span><span class="line-no" data-line="18"></span><span class="line"><c- kr>HTTP</c-><c- o>/</c-><c- m>1.1</c-> <c- m>200</c-> <c- ne>OK</c-></span><span class="line-no" data-line="19"></span><span class="line"><c- e>Content-Type</c-><c- o>:</c-> <c- l>application/ld+json</c-></span><span class="line-no" data-line="20"></span><span class="line"><c- e>Content-Length</c-><c- o>:</c-> <c- l>180</c-></span><span class="line-no" data-line="21"></span><span class="line"></span><span class="line-no" data-line="22"></span><span class="line"><c- p>{</c-></span><span class="line-no" data-line="23"></span><span class="line">  <c- nd>"@context"</c-><c- p>:</c-> <c- u>"https://www.w3.org/ns/activitystreams"</c-><c- p>,</c-></span><span class="line-no" data-line="24"></span><span class="line">  <c- f>"published"</c-><c- p>:</c-> <c- u>"2024-11-10T11:12:13Z"</c-><c- p>,</c-></span><span class="line-no" data-line="25"></span><span class="line">  <c- f>"type"</c-><c- p>:</c-> <c- u>"Update"</c-><c- p>,</c-></span><span class="line-no" data-line="26"></span><span class="line">  <c- f>"object"</c-><c- p>:</c-> <c- u>"https://example.org/missing/John_Doe"</c-></span><span class="line-no" data-line="27"></span><span class="line"><c- p>}</c-></span></pre>
+    <p>Finally, the person is found, so the resource is deleted, the <a data-link-type="dfn" href="#server" id="ref-for-server①⑧">server</a> emits an event notification and the stream closes:</p>
+<pre class="include-code highlight line-numbered"><span class="line-no" data-line="28"></span><span class="line"></span><span class="line-no" data-line="29"></span><span class="line"><c- kr>HTTP</c-><c- o>/</c-><c- m>1.1</c-> <c- m>200</c-> <c- ne>OK</c-></span><span class="line-no" data-line="30"></span><span class="line"><c- e>Content-Type</c-><c- o>:</c-> <c- l>application/ld+json</c-></span><span class="line-no" data-line="31"></span><span class="line"><c- e>Content-Length</c-><c- o>:</c-> <c- l>180</c-></span><span class="line-no" data-line="32"></span><span class="line"></span><span class="line-no" data-line="33"></span><span class="line"><c- p>{</c-></span><span class="line-no" data-line="34"></span><span class="line">  <c- nd>"@context"</c-><c- p>:</c-> <c- u>"https://www.w3.org/ns/activitystreams"</c-><c- p>,</c-></span><span class="line-no" data-line="35"></span><span class="line">  <c- f>"published"</c-><c- p>:</c-> <c- u>"2024-11-10T14:15:16Z"</c-><c- p>,</c-></span><span class="line-no" data-line="36"></span><span class="line">  <c- f>"type"</c-><c- p>:</c-> <c- u>"Delete"</c-><c- p>,</c-></span><span class="line-no" data-line="37"></span><span class="line">  <c- f>"object"</c-><c- p>:</c-> <c- u>"https://example.org/missing/John_Doe"</c-></span><span class="line-no" data-line="38"></span><span class="line"><c- p>}</c-></span></pre>
+   </div>
   </main>
   <script src="https://www.w3.org/scripts/TR/2021/fixup.js"></script>
   <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
@@ -1270,9 +1315,9 @@ function parseHTML(markup) {
 "use strict";
 {
 let dfnPanelData = {
-"client": {"dfnID":"client","dfnText":"Client","external":false,"refSections":[{"refs":[{"id":"ref-for-client"}],"title":"1.3.4. Interoperability"},{"refs":[{"id":"ref-for-client\u2460"}],"title":"2.1. Discovery"},{"refs":[{"id":"ref-for-client\u2461"},{"id":"ref-for-client\u2462"}],"title":"4.3. Extended Content"},{"refs":[{"id":"ref-for-client\u2463"},{"id":"ref-for-client\u2464"}],"title":"Security Considerations"}],"url":"#client"},
+"client": {"dfnID":"client","dfnText":"Client","external":false,"refSections":[{"refs":[{"id":"ref-for-client"}],"title":"1.3.4. Interoperability"},{"refs":[{"id":"ref-for-client\u2460"}],"title":"2. Discovery"},{"refs":[{"id":"ref-for-client\u2461"}],"title":"3.2. Vocabulary"},{"refs":[{"id":"ref-for-client\u2462"},{"id":"ref-for-client\u2463"}],"title":"4.4. Extended Content"},{"refs":[{"id":"ref-for-client\u2464"},{"id":"ref-for-client\u2465"}],"title":"Security Considerations"},{"refs":[{"id":"ref-for-client\u2466"}],"title":"\n  Example\n"}],"url":"#client"},
 "client-server-interoperability": {"dfnID":"client-server-interoperability","dfnText":"Client\u2014Server Interoperability","external":false,"refSections":[{"refs":[{"id":"ref-for-client-server-interoperability"}],"title":"1.3.4. Interoperability"}],"url":"#client-server-interoperability"},
-"server": {"dfnID":"server","dfnText":"Server","external":false,"refSections":[{"refs":[{"id":"ref-for-server"}],"title":"1.3.4. Interoperability"},{"refs":[{"id":"ref-for-server\u2460"},{"id":"ref-for-server\u2461"}],"title":"2.1. Discovery"},{"refs":[{"id":"ref-for-server\u2462"},{"id":"ref-for-server\u2463"}],"title":"2.2. Request"},{"refs":[{"id":"ref-for-server\u2464"},{"id":"ref-for-server\u2465"}],"title":"2.3. Response"},{"refs":[{"id":"ref-for-server\u2466"},{"id":"ref-for-server\u2467"},{"id":"ref-for-server\u2468"}],"title":"3.2. Extended Content"},{"refs":[{"id":"ref-for-server\u2460\u24ea"}],"title":"4.2. Activity Mapping"},{"refs":[{"id":"ref-for-server\u2460\u2460"}],"title":"4.3. Extended Content"},{"refs":[{"id":"ref-for-server\u2460\u2461"},{"id":"ref-for-server\u2460\u2462"}],"title":"Security Considerations"}],"url":"#server"},
+"server": {"dfnID":"server","dfnText":"Server","external":false,"refSections":[{"refs":[{"id":"ref-for-server"}],"title":"1.3.4. Interoperability"},{"refs":[{"id":"ref-for-server\u2460"},{"id":"ref-for-server\u2461"},{"id":"ref-for-server\u2462"}],"title":"2. Discovery"},{"refs":[{"id":"ref-for-server\u2463"},{"id":"ref-for-server\u2464"},{"id":"ref-for-server\u2465"}],"title":"3.3. Extended Content"},{"refs":[{"id":"ref-for-server\u2466"},{"id":"ref-for-server\u2467"}],"title":"3.4. Format"},{"refs":[{"id":"ref-for-server\u2468"}],"title":"4.3. Activity Mapping"},{"refs":[{"id":"ref-for-server\u2460\u24ea"}],"title":"4.4. Extended Content"},{"refs":[{"id":"ref-for-server\u2460\u2460"},{"id":"ref-for-server\u2460\u2461"}],"title":"4.5. Format"},{"refs":[{"id":"ref-for-server\u2460\u2462"},{"id":"ref-for-server\u2460\u2463"}],"title":"Security Considerations"},{"refs":[{"id":"ref-for-server\u2460\u2464"},{"id":"ref-for-server\u2460\u2465"},{"id":"ref-for-server\u2460\u2466"},{"id":"ref-for-server\u2460\u2467"}],"title":"\n  Example\n"}],"url":"#server"},
 };
 
 document.addEventListener("DOMContentLoaded", ()=>{
