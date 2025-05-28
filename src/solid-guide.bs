@@ -28,7 +28,7 @@ Abstract:
 </pre>
 
 <pre class="include">
-  path: solid-guide/notifications.md
+  path: solid-guide/notification.md
 </pre>
 
 <pre class="include">
