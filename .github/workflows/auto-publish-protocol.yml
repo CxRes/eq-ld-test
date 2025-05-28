@@ -2,6 +2,8 @@ name: Publish Protocol
 on:
   workflow_dispatch: {}
   pull_request:
+    branches-ignore:
+      - gh-pages
     paths:
       - src/boilerplate/**
       - src/examples/**
@@ -9,9 +11,11 @@ on:
       - src/*.html
       - src/*.include
       - src/protocol.bs
+    types:
+      - closed
   push:
-    branches:
-      - main
+    branches-ignore:
+      - gh-pages
     paths:
       - src/boilerplate/**
       - src/examples/**
@@ -25,13 +29,17 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    if: ${{ !(github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == false) }}
     steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: main
-      - uses: w3c/spec-prod@v2
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+      - name: Publish main with Bikeshed
+        uses: w3c/spec-prod@v2
+        env:
+          FOLDER: ${{ github.ref == 'refs/heads/main' && '' || 'branch/${GITHUB_REF##*/}/' }}
         with:
           GH_PAGES_BRANCH: gh-pages
           TOOLCHAIN: bikeshed
           SOURCE: src/protocol.bs
-          DESTINATION: protocol/index.html
+          DESTINATION: ${{ env.FOLDER }}protocol/index.html
+          VALIDATE_MARKUP: false
