@@ -36,10 +36,10 @@ jobs:
       - name: Publish main with Bikeshed
         uses: w3c/spec-prod@v2
         env:
-          FOLDER: ${{ github.ref == 'refs/heads/main' && '' || 'branch/${GITHUB_REF##*/}/' }}
+          BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+          FOLDER_NAME: ${{ env.BRANCH_NAME == 'main' && '' || format('branch/{0}/', env.BRANCH_NAME) }}
         with:
           GH_PAGES_BRANCH: gh-pages
           TOOLCHAIN: bikeshed
           SOURCE: src/protocol.bs
-          DESTINATION: ${{ env.FOLDER }}protocol/index.html
-          VALIDATE_MARKUP: false
+          DESTINATION: ${{ env.FOLDER_NAME }}protocol/index.html
