@@ -61,7 +61,7 @@ Abstract:
   path: protocol/example.md
 </pre>
 
-<p> TEST 1 </p>
+<p> TEST 2 </p>
 
 <pre class="biblio">
 {
