@@ -18,9 +18,9 @@ eq-ld:
     vann:preferredNamespacePrefix "eq-ld" ;
     vann:preferredNamespaceUri eq-ld: .
 
-# -------------
+# --------------
 #  Properties
-# -------------
+# --------------
 eq-ld:events
     a rdf:Property ;
     rdfs:subPropertyOf http:headers ;
