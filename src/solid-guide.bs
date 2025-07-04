@@ -1,0 +1,75 @@
+<pre class="metadata">
+Title: Events Query with Linked Data: A Guide for Solid Implementors
+Shortname: S/EQ-LD
+Status: LD
+ED: https://cxres.github.io/eq-ld/solid-guide
+Local Boilerplate: copyright yes, defaults yes, status yes
+Editor: Rahul Gupta, https://cxres.pages.dev/profile/#i
+!Authors: <a href="https://cxres.pages.dev/profile/#i">Rahul Gupta</a>
+!Version: 0.1.0
+Abstract:
+  This document provides guidance for Solid Protocol implementors interested in providing notifications using Event Query with Linked Data.
+</pre>
+
+<pre class="include-raw">
+  path: table.css.html
+</pre>
+
+<pre class="include">
+  path: solid-guide/introduction.md
+</pre>
+
+<pre class="include">
+  path: solid-guide/request.md
+</pre>
+
+<pre class="include">
+  path: solid-guide/response.md
+</pre>
+
+<pre class="include">
+  path: solid-guide/notification.md
+</pre>
+
+<pre class="include">
+  path: solid-guide/considerations.md
+</pre>
+
+<pre class="biblio">
+{
+  "EQ-LD": {
+    "note": "Work in Progress",
+    "authors": [
+      "Rahul Gupta"
+    ],
+    "href": "https://cxres.github.io/eq-ld/protocol",
+    "edDraft": "https://cxres.github.io/eq-ld/protocol",
+    "title": "Events Query with Linked Data",
+    "status": "Unofficial Draft",
+    "publisher": "Rahul Gupta"
+  },
+  "EVENTS-QUERY": {
+    "note": "Work in Progress",
+    "authors": [
+      "Rahul Gupta"
+    ],
+    "href": "https://datatracker.ietf.org/doc/html/draft-gupta-httpapi-events-query",
+    "edDraft": "https://cxres.github.io/events-query/draft-gupta-httpapi-events-query.html",
+    "title": "HTTP Events Query",
+    "status": "Internet Draft",
+    "publisher": "Rahul Gupta"
+  },
+  "SOLID-NOTIFICATIONS": {
+    "authors": [
+      "Sarven Capadisli, Ed.",
+      "Aaron Coburn",
+      "elf Pavlik",
+      "Rahul Gupta"
+    ],
+    "href": "https://solidproject.org/TR/notifications-protocol",
+    "title": "Solid Notifications Protocol",
+    "status": "Draft Community Group Report",
+    "publisher": "Solid Community Group"
+  }
+}
+</pre>
