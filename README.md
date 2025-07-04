@@ -9,6 +9,12 @@ Events Query with Linked Data defines representation and semantics for notificat
 * Unofficial Draft: <https://cxres.github.io/eq-ld/protocol>
 * Solid Implementers' Guide: <https://cxres.github.io/eq-ld/solid-guide>
 
+## Build
+
+```sh
+bikeshed spec ./src/protocol.bs ./_protocol.html
+```
+
 ## Contributing
 
 Feel free to contribute to **Events Query with Linked Data** by opening an issue or a pull request to the **Events Query with Linked Data** [repository](https://github.com/CxRes/eq-ld).

@@ -11,13 +11,13 @@ A [=server=] MUST further set the value of the `profile` parameter of the `appli
   <em>Request</em>
   <pre class="include-code">
     path: examples/discovery/request.http
-    line-highlight: 2-3
   </pre>
   </div>
   <div class="sub-example">
   <em>Response</em>
   <pre class="include-code">
     path: examples/discovery/response.http
+    line-highlight: 2-3
   </pre>
   </div>
 </div>
