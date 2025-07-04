@@ -23,12 +23,9 @@ jobs:
             ns
       - name: Get Author Stats
         run: |
-          COMMIT_AUTHOR_NAME=$(git show -s --format='%an' ${{ github.sha }})
-          COMMIT_AUTHOR_EMAIL=$(git show -s --format='%ae' ${{ github.sha }})
-          COMMIT_HEADLINE=$(git show -s --format=%s ${{ github.sha }})
-          echo $COMMIT_AUTHOR_NAME
-          echo $COMMIT_AUTHOR_EMAIL
-          echo $COMMIT_HEADLINE
+          COMMIT_AUTHOR_NAME=$(git show -s --format='%an' ${{ github.sha }}) >> $GITHUB_ENV
+          COMMIT_AUTHOR_EMAIL=$(git show -s --format='%ae' ${{ github.sha }}) >> $GITHUB_ENV
+          COMMIT_HEADLINE=$(git show -s --format=%s ${{ github.sha }}) >> $GITHUB_ENV
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
         with:
