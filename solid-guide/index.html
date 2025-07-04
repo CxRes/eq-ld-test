@@ -1488,9 +1488,9 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version b25686b9f, updated Fri Mar 14 14:15:20 2025 -0700" name="generator">
+  <meta content="Bikeshed version 618007319, updated Thu Jun 26 17:23:55 2025 -0700" name="generator">
   <link href="https://cxres.github.io/eq-ld/solid-guide" rel="canonical">
-  <meta content="2089c9bfbba5c938a8042a2fe88d0acb57657e46" name="revision">
+  <meta content="d443fbdf9d49b0082342168abcb68dcdfaa999f0" name="revision">
   <meta content="dark light" name="color-scheme">
 <style>
 main {
@@ -1948,7 +1948,8 @@ dfn > a.self-link::before      { content: "#"; }
  <body class="h-entry">
   <div class="head">
    <h1 class="p-name no-ref" id="title">Events Query with Linked Data: A Guide for Solid Implementors</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Living Document, <time class="dt-updated" datetime="2025-05-27">27 May 2025</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Living Document,
+    <time class="dt-updated" datetime="2025-07-04">4 July 2025</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1965,7 +1966,8 @@ dfn > a.self-link::before      { content: "#"; }
    </div>
    <div data-fill-with="warning"></div>
    <p class="copyright" data-fill-with="copyright">Copyright © 2025, Events Query with Linked Data contributors.
-This work is distributed under the <a href="https://www.w3.org/copyright/software-license-2023/" rel="license" title="W3C Document and Software license - 2023 version"><abbr title="World Wide Web Consortium">W3C</abbr><sup>®</sup> Document and Software license - 2023 version</a>. </p>
+This work is distributed under the <a href="https://www.w3.org/copyright/software-license-2023/" rel="license" title="W3C Document and Software license - 2023 version"><abbr title="World Wide Web Consortium">W3C</abbr><sup>®</sup> Document and Software license - 2023 version</a>.
+</p>
    <hr title="Separator for header">
   </div>
   <div class="p-summary" data-fill-with="abstract">
@@ -2000,7 +2002,9 @@ This work is distributed under the <a href="https://www.w3.org/copyright/softwar
       <li><a href="#activity-mapping"><span class="secno">4.3</span> <span class="content">Activity Mapping</span></a>
      </ol>
     <li>
-     <a href="#considerations"><span class="secno"></span> <span class="content"> Considerations </span></a>
+     <a href="#considerations"><span class="secno"></span> <span class="content">
+  Considerations
+</span></a>
      <ol class="toc">
       <li><a href="#security-considerations"><span class="secno"></span> <span class="content">Security Considerations</span></a>
       <li><a href="#privacy-considerations"><span class="secno"></span> <span class="content">Privacy Considerations</span></a>
@@ -2048,47 +2052,97 @@ This work is distributed under the <a href="https://www.w3.org/copyright/softwar
    <p>The Solid Protocol <a data-link-type="biblio" href="#biblio-solid-protocol" title="Solid Protocol">[SOLID-PROTOCOL]</a> requires the state of an LDP container is modified when a contained resource is acted upon by certain HTTP methods. Thus, an HTTP method acting on a resource can trigger a <a href="https://solidproject.org/ED/protocol#Server">Solid server</a> to transmit an event notification on that resource or its container or both.</p>
    <p>It follows that a <a href="https://solidproject.org/ED/protocol#Server">Solid server</a> ought to send event notification(s) on a resource and/or its container, when a request with one of the following HTTP methods generates a response with any of the given HTTP status codes:</p>
    <table class="numbered auto">
-    <caption> HTTP Notification Triggers </caption>
+    <caption> HTTP Notification Triggers
+  </caption>
     <tbody>
      <tr>
-      <th rowspan="2"> Request Method 
-      <th rowspan="2"> Response Status 
-      <th class="center" colspan="2"> Notify 
+      <th rowspan="2"> Request Method
+    
+      <th rowspan="2"> Response Status
+    
+      <th class="center" colspan="2"> Notify
+  
      <tr>
-      <th class="center"> Resource 
-      <th class="center"> Container 
+      <th class="center"> Resource
+    
+      <th class="center"> Container
+  
      <tr>
-      <td rowspan="2"> <code><a href="https://httpwg.org/specs/rfc9110.html#PUT">PUT</a></code> <br> <code><a href="https://httpwg.org/specs/rfc5789.html#section-2">PATCH</a></code> <br> 
-      <td> <code><a href="https://httpwg.org/specs/rfc9110.html#status.200">200 (OK)</a></code> <br> <code><a href="https://httpwg.org/specs/rfc9110.html#status.204">204 (No Content)</a></code> <br> <code><a href="https://httpwg.org/specs/rfc9110.html#status.205">205 (Reset Content)</a></code> 
-      <td class="tick"> ✓ 
-      <td class="tick"> ✓ 
-     <tr>
-      <td> <code><a href="https://httpwg.org/specs/rfc9110.html#status.201">201 (Created)</a></code> <br> 
+      <td rowspan="2">
+      <code><a href="https://httpwg.org/specs/rfc9110.html#PUT">PUT</a></code> <br>
+      <code><a href="https://httpwg.org/specs/rfc5789.html#section-2">PATCH</a></code> <br>
+    
       <td>
-      <td class="tick"> ✓ 
+      <code><a href="https://httpwg.org/specs/rfc9110.html#status.200">200 (OK)</a></code> <br>
+      <code><a href="https://httpwg.org/specs/rfc9110.html#status.204">204 (No Content)</a></code> <br>
+      <code><a href="https://httpwg.org/specs/rfc9110.html#status.205">205 (Reset Content)</a></code>
+    
+      <td class="tick">
+      ✓
+    
+      <td class="tick">
+      ✓
+  
      <tr>
-      <td rowspan="2"> <code><a href="https://httpwg.org/specs/rfc9110.html#POST">POST</a></code> 
-      <td> <code><a href="https://httpwg.org/specs/rfc9110.html#status.200">200 (OK)</a></code> <br> <code><a href="https://httpwg.org/specs/rfc9110.html#status.204">204 (No Content)</a></code> <br> <code><a href="https://httpwg.org/specs/rfc9110.html#status.205">205 (Reset Content)</a></code> 
-      <td class="tick"> ✓ 
-      <td class="tick"> ✓ 
+      <td>
+      <code><a href="https://httpwg.org/specs/rfc9110.html#status.201">201 (Created)</a></code> <br>
+    
+      <td>
+      <td class="tick">
+      ✓
+  
      <tr>
-      <td> <code><a href="https://httpwg.org/specs/rfc9110.html#status.201">201 (Created)</a></code> 
-      <td class="tick"> ✓ 
+      <td rowspan="2">
+      <code><a href="https://httpwg.org/specs/rfc9110.html#POST">POST</a></code>
+    
+      <td>
+      <code><a href="https://httpwg.org/specs/rfc9110.html#status.200">200 (OK)</a></code> <br>
+      <code><a href="https://httpwg.org/specs/rfc9110.html#status.204">204 (No Content)</a></code> <br>
+      <code><a href="https://httpwg.org/specs/rfc9110.html#status.205">205 (Reset Content)</a></code>
+    
+      <td class="tick">
+      ✓
+    
+      <td class="tick">
+      ✓
+  
+     <tr>
+      <td>
+      <code><a href="https://httpwg.org/specs/rfc9110.html#status.201">201 (Created)</a></code>
+    
+      <td class="tick">
+      ✓
+    
       <td>
      <tr>
-      <td> <code> <a href="https://httpwg.org/specs/rfc9110.html#DELETE">DELETE</a></code> 
-      <td> <code><a href="https://httpwg.org/specs/rfc9110.html#status.200">200 (OK)</a></code> <br> <code><a href="https://httpwg.org/specs/rfc9110.html#status.204">204 (No Content)</a></code> <br> 
-      <td class="tick"> ✓ 
-      <td class="tick"> ✓ 
+      <td>
+      <code> <a href="https://httpwg.org/specs/rfc9110.html#DELETE">DELETE</a></code>
+    
+      <td>
+      <code><a href="https://httpwg.org/specs/rfc9110.html#status.200">200 (OK)</a></code> <br>
+      <code><a href="https://httpwg.org/specs/rfc9110.html#status.204">204 (No Content)</a></code> <br>
+    
+      <td class="tick">
+      ✓
+    
+      <td class="tick">
+      ✓
+
    </table>
-    <br> 
+   
+<br>
+
+
    <p>Additionally, a <a href="https://solidproject.org/ED/protocol#Server">Solid server</a> ought to send event notification(s) on a resource and/or its container when modified at a later time as result of HTTP request that generates a <code><a href="https://httpwg.org/specs/rfc9110.html#status.202">202 (Accepted)</a></code> status code.</p>
    <h3 class="heading settled" data-level="4.2" id="vocabulary"><span class="secno">4.2. </span><span class="content">Vocabulary</span><a class="self-link" href="#vocabulary"></a></h3>
    <p>To ensure that a notification message is consistent with the <a href="https://solidproject.org/TR/notifications-protocol#notification-message-data-model">data model</a> described in <a data-link-type="biblio" href="#biblio-solid-notifications" title="Solid Notifications Protocol">[SOLID-NOTIFICATIONS]</a>, implementations can extend the notification data using the Solid Notifications <a href="https://www.w3.org/ns/solid/notifications">vocabulary</a>.</p>
    <p>A <a href="https://solidproject.org/ED/protocol#Server">Solid server</a> is encouraged to augment an event notification with the following property:</p>
    <dl>
-    <dt id="notification-property-state"><a class="self-link" href="#notification-property-state"></a><code><em>notify:state</em> &lt;xs:string></code> 
-    <dd> an opaque identifier for the last known state of the resource. 
+    <dt id="notification-property-state"><a class="self-link" href="#notification-property-state"></a><code><em>notify:state</em> &lt;xs:string></code>
+  
+    <dd> an opaque identifier for the last known state of the resource.
+
+
    </dl>
    <p class="note" role="note"><span class="marker">NOTE:</span> By not mandating this property, we allow existing Solid implementations that might not keep track of state, to still adopt <span class="title">Events Query with Linked Data</span>. Newer implementations are encouraged to include this property unless operating in constrained environments.</p>
    <h3 class="heading settled" data-level="4.3" id="activity-mapping"><span class="secno">4.3. </span><span class="content">Activity Mapping</span><a class="self-link" href="#activity-mapping"></a></h3>
@@ -2097,63 +2151,114 @@ This work is distributed under the <a href="https://www.w3.org/copyright/softwar
     <li data-md>
      <p>When an event notification is triggered by a request on the resource with one of the following HTTP methods:</p>
      <table class="numbered">
-      <caption> Activity Mapping for Resources </caption>
+      <caption> Activity Mapping for Resources
+  </caption>
       <thead>
        <tr>
-        <th> Request Method 
-        <th> Activity Type 
+        <th> Request Method
+      
+        <th> Activity Type
+  
       <tbody>
        <tr>
-        <td> <code><a href="https://httpwg.org/specs/rfc9110.html#POST">POST</a></code> <br> <code>(<a href="https://solidproject.org/ED/protocol#resource-containment">Containers</a>)</code> 
-        <td> <code><a href="https://w3c.github.io/activitystreams/vocabulary/#dfn-add">as:Add</a></code> 
+        <td>
+        <code><a href="https://httpwg.org/specs/rfc9110.html#POST">POST</a></code> <br>
+        <code>(<a href="https://solidproject.org/ED/protocol#resource-containment">Containers</a>)</code>
+      
+        <td>
+        <code><a href="https://w3c.github.io/activitystreams/vocabulary/#dfn-add">as:Add</a></code>
+    
        <tr>
-        <td> <code><a href="https://httpwg.org/specs/rfc9110.html#PUT">PUT</a></code> 
-        <td rowspan="3"> <code><a href="https://w3c.github.io/activitystreams/vocabulary/#dfn-update">as:Update</a></code> 
+        <td>
+        <code><a href="https://httpwg.org/specs/rfc9110.html#PUT">PUT</a></code>
+      
+        <td rowspan="3">
+        <code><a href="https://w3c.github.io/activitystreams/vocabulary/#dfn-update">as:Update</a></code>
+    
        <tr>
-        <td> <code><a href="https://httpwg.org/specs/rfc5789.html#section-2">PATCH</a></code> 
+        <td>
+        <code><a href="https://httpwg.org/specs/rfc5789.html#section-2">PATCH</a></code>
+    
        <tr>
-        <td> <code><a href="https://httpwg.org/specs/rfc9110.html#POST">POST</a></code> <br> <code>(Not <a href="https://solidproject.org/ED/protocol#resource-containment">Containers</a>)</code> 
+        <td>
+        <code><a href="https://httpwg.org/specs/rfc9110.html#POST">POST</a></code> <br>
+        <code>(Not <a href="https://solidproject.org/ED/protocol#resource-containment">Containers</a>)</code>
+    
        <tr>
-        <td> <code><a href="https://httpwg.org/specs/rfc9110.html#DELETE">DELETE</a></code> 
-        <td> <code><a href="https://w3c.github.io/activitystreams/vocabulary/#dfn-delete">as:Delete</a></code> 
+        <td>
+        <code><a href="https://httpwg.org/specs/rfc9110.html#DELETE">DELETE</a></code>
+      
+        <td>
+        <code><a href="https://w3c.github.io/activitystreams/vocabulary/#dfn-delete">as:Delete</a></code>
+
      </table>
-      <br> 
+     
+<br>
+
+
     <li data-md>
      <p>When an event notification is triggered on a container, by a request on a contained resource with one of the following HTTP methods:</p>
      <table class="numbered">
-      <caption> Activity Mapping for LDP Containers when contained resources change </caption>
+      <caption> Activity Mapping for LDP Containers when contained resources change
+  </caption>
       <thead>
        <tr>
-        <th> Request Method 
-        <th> Activity Type 
+        <th> Request Method
+      
+        <th> Activity Type
+  
       <tbody>
        <tr>
-        <td> <code><a href="https://httpwg.org/specs/rfc9110.html#PUT">PUT</a></code> 
-        <td rowspan="2"> <code><a href="https://w3c.github.io/activitystreams/vocabulary/#dfn-update">as:Update</a></code> 
+        <td>
+        <code><a href="https://httpwg.org/specs/rfc9110.html#PUT">PUT</a></code>
+      
+        <td rowspan="2">
+        <code><a href="https://w3c.github.io/activitystreams/vocabulary/#dfn-update">as:Update</a></code>
+    
        <tr>
-        <td> <code><a href="https://httpwg.org/specs/rfc5789.html#section-2">PATCH</a></code> 
+        <td>
+        <code><a href="https://httpwg.org/specs/rfc5789.html#section-2">PATCH</a></code>
+    
        <tr>
-        <td> <code><a href="https://httpwg.org/specs/rfc9110.html#DELETE">DELETE</a></code> 
-        <td> <code><a href="https://w3c.github.io/activitystreams/vocabulary/#dfn-remove">as:Remove</a></code> 
+        <td>
+        <code><a href="https://httpwg.org/specs/rfc9110.html#DELETE">DELETE</a></code>
+      
+        <td>
+        <code><a href="https://w3c.github.io/activitystreams/vocabulary/#dfn-remove">as:Remove</a></code>
+
      </table>
-      <br> 
+     
+<br>
+
+
     <li data-md>
      <p>When an event notification is triggered on a container, by a request to create a new resource inside that container (resource) with one of the following HTTP methods:</p>
      <table class="numbered">
-      <caption> Activity Mapping for LDP Containers when contained resources are created </caption>
+      <caption> Activity Mapping for LDP Containers when contained resources are created
+  </caption>
       <thead>
        <tr>
-        <th> Request Method 
-        <th> Activity Type 
+        <th> Request Method
+      
+        <th> Activity Type
+  
       <tbody>
        <tr>
-        <td> <code><a href="https://httpwg.org/specs/rfc9110.html#PUT">PUT</a></code> 
-        <td rowspan="2"> <code><a href="https://w3c.github.io/activitystreams/vocabulary/#dfn-add">as:Add</a></code> 
+        <td>
+        <code><a href="https://httpwg.org/specs/rfc9110.html#PUT">PUT</a></code>
+      
+        <td rowspan="2">
+        <code><a href="https://w3c.github.io/activitystreams/vocabulary/#dfn-add">as:Add</a></code>
+    
        <tr>
-        <td> <code><a href="https://httpwg.org/specs/rfc5789.html#section-2">PATCH</a></code> 
+        <td>
+        <code><a href="https://httpwg.org/specs/rfc5789.html#section-2">PATCH</a></code>
+
      </table>
    </ol>
-   <h2 class="no-num heading settled" id="considerations"><span class="content"> Considerations </span><a class="self-link" href="#considerations"></a></h2>
+   <h2 class="no-num heading settled" id="considerations"><span class="content">
+  Considerations
+</span><a class="self-link" href="#considerations"></a></h2>
    <p>References within this specification point to documents with a Living Standard or Draft status, meaning their contents can still change over time. It is advised to monitor these documents, as such changes might have implications.</p>
    <h3 class="heading settled" id="security-considerations"><span class="content">Security Considerations</span><a class="self-link" href="#security-considerations"></a></h3>
    <p>Implementers are strongly advised to adhere to the <a href="https://solidproject.org/ED/protocol#security-considerations">security considerations</a> in the Solid Protocol <a data-link-type="biblio" href="#biblio-solid-protocol" title="Solid Protocol">[SOLID-PROTOCOL]</a> as well as <a href="https://cxres.github.io/eq-ld/protocol#security-considerations">security considerations</a> in the <span class="title">Events Query with Linked Data</span> Protocol <a data-link-type="biblio" href="#biblio-eq-ld" title="Events Query with Linked Data">[EQ-LD]</a>.</p>
