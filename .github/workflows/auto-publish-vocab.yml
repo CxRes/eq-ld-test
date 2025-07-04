@@ -28,7 +28,7 @@ jobs:
           COMMIT_HEADLINE=$(git show -s --format=%s ${{ github.sha }})
           echo "COMMIT_AUTHOR_NAME=$COMMIT_AUTHOR_NAME" >> $GITHUB_ENV
           echo "COMMIT_AUTHOR_EMAIL=$COMMIT_AUTHOR_EMAIL" >> $GITHUB_ENV
-          echo "COMMIT_AUTHOR_HEADLINE=$COMMIT_AUTHOR_HEADLINE" >> $GITHUB_ENV
+          echo "COMMIT_HEADLINE=$COMMIT_HEADLINE" >> $GITHUB_ENV
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
         with:
