@@ -21,9 +21,23 @@ jobs:
           ref: main
           sparse-checkout: |
             ns
+      - name: Get Author Stats
+        run: |
+          COMMIT_AUTHOR_NAME=$(git show -s --format='%an' ${{ github.sha }})
+          COMMIT_AUTHOR_EMAIL=$(git show -s --format='%ae' ${{ github.sha }})
+          COMMIT_HEADLINE=$(git show -s --format=%s ${{ github.sha }})
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ns
           destination_dir: ns
+          user_name: ${{ env.COMMIT_AUTHOR_NAME }}
+          user_email: ${{ env.COMMIT_AUTHOR_EMAIL }}
+          commit_message: |
+            Publish namespace: ${{ env.COMMIT_HEADLINE }}
+
+            SHA: ${{ github.sha }}
+            Reason: ${{ github.event }} by ${{ github.actor }}
+
+            Co-authored-by: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
