@@ -20,7 +20,7 @@ eq-ld:
 
 # -------------
 #  Properties
-# -------------
+# ------------
 eq-ld:events
     a rdf:Property ;
     rdfs:subPropertyOf http:headers ;
