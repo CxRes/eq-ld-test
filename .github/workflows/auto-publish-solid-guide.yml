@@ -1,0 +1,40 @@
+name: Publish Solid Guide
+on:
+  workflow_dispatch: {}
+  pull_request:
+    branches-ignore:
+      - gh-pages
+    paths:
+      - src/boilerplate/considerations.md
+      - src/solid-guide/**
+      - src/*.html
+      - src/*.include
+      - src/solid-guide.bs
+    types:
+      - closed
+  push:
+    branches-ignore:
+      - gh-pages
+    paths:
+      - src/boilerplate/considerations.md
+      - src/solid-guide/**
+      - src/*.html
+      - src/*.include
+      - src/solid-guide.bs
+jobs:
+  publish-solid-guide:
+    name: Publish Solid Guide to GitHub pages
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    if: ${{ !(github.event_name == 'pull_request_target' && github.event.action == 'closed' && github.event.pull_request.merged == false) }}
+    steps:
+      - name: Checkout Branch
+        uses: actions/checkout@v4
+      - name: Publish Solid Guide with Bikeshed
+        uses: w3c/spec-prod@v2
+        with:
+          GH_PAGES_BRANCH: gh-pages
+          TOOLCHAIN: bikeshed
+          SOURCE: src/solid-guide.bs
+          DESTINATION: ${{ github.ref_name != 'main' &&  format('branch/{0}/', github.ref_name) || ''}}solid-guide/index.html
